@@ -1,0 +1,4 @@
+﻿  main.cpp
+d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(12): warning C4091: 'typedef ': ignored on left of 'aluno' when no variable is declared
+  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.exe
+  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.pdb (Partial PDB)
