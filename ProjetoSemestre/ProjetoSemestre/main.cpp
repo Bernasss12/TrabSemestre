@@ -2,62 +2,39 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include <stdbool.h>
 #include <clocale>
-
-
-typedef struct aluno
-{
-	
-};
-
-char menu();
+#include "menus.h"
 
 void main()
 {	
+	int MENU_INPUT = 0;
+
 	setlocale(LC_ALL, "pt-PT");
-	auto opt1 = menu();
-	int opt1_1 = 0;
-	while (opt1_1 == 0)
-		if (opt1 == 'T' || opt1 == 't')
-		{
-			printf("T.\n\n");
-			opt1_1 = 1;
+	linha(50);
+
+	//Menu 1, decisão
+	while (MENU_INPUT != 1){
+		switch (menu()) {
+		case 'T':
+			printf("Input Teclado\n");
+			inscaluno();
+			MENU_INPUT = 1;	
+			break;
+		case 'F':
+			printf("Input Ficheiro\n");
+			MENU_INPUT = 1;
+			break;
+		case 'S':
+			MENU_INPUT = 1;
+			sair();
+			break;
+		default:
+			break;
 		}
-		else if (opt1 == 'F' || opt1 == 'f')
-		{
-			printf("Nao T, F.\n\n");
-			opt1_1 = 1;
-		}
-		else if (opt1 == 'S' || opt1 == 's')
-		{
-			printf("A sair.\n\n");
-			opt1_1 = 1;
-			exit(1);
-		}
-		else
-		{
-			opt1_1 = 0;
-		}
+	}
 
 	system("pause");
 }
 
-char menu()
-{	
-	system("cls");
-	char resposta;
-	printf("==============\n");
-	printf("Menu Principal %c\n", 132);
-	printf("==================================================\n");
-	printf("Como deseja fornecer os dados?\n");
-	printf("==================================================\n");
-	printf("Por Teclado                   |");
-	printf("Insira 'T'\n");
-	printf("Por Ficheiro                  |");
-	printf("Insira 'F'\n");
-	printf("Desejo sair do programa.      |");
-	printf("Insira 'S'\n");
-	scanf(" %c", &resposta);
-	return resposta;
-}

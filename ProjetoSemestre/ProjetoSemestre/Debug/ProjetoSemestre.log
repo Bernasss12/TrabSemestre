@@ -1,4 +1,11 @@
 ﻿  main.cpp
-d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(12): warning C4091: 'typedef ': ignored on left of 'aluno' when no variable is declared
+d:\trabsemestre\projetosemestre\projetosemestre\menus.h(140): warning C4473: 'scanf_s' : not enough arguments passed for format string
+  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(140): note: placeholders and their parameters expect 2 variadic arguments, but 1 were provided
+  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(140): note: the missing variadic argument 2 is required by format string '%s'
+  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(140): note: this argument is used as a buffer size
+d:\trabsemestre\projetosemestre\projetosemestre\menus.h(142): warning C4473: 'scanf_s' : not enough arguments passed for format string
+  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(142): note: placeholders and their parameters expect 2 variadic arguments, but 1 were provided
+  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(142): note: the missing variadic argument 2 is required by format string '%s'
+  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(142): note: this argument is used as a buffer size
   ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.exe
   ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.pdb (Partial PDB)
