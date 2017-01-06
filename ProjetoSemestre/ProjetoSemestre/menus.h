@@ -1,9 +1,9 @@
-﻿#pragma once
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <stdlib.h>
 #include <locale>
 #include <ctype.h>
 #include <windows.h>
+#include "langhelper.h"
 
 typedef struct
 {
@@ -26,40 +26,15 @@ void top_D(int, int);
 void bot_U(int, int);
 void top(int);
 void bot(int);
-void printalunos();
+void printalunos(int);
 
 //Default de Cabeçalho
 auto NUM_ALUNOS = 1;
 int NUM_ALUNO = 10000;
+int ANO = 0000;
 
 
-//Códigos ASCII
-//Letras
-int A_MIN_TIL = 132; //ã
-int A_MAI_TIL = 142; //Ã
-int O_MIN_ACE = 162; //ó
-int O_MAI_ACE = 159; //Ó
-int C_MIN_CED = 135; //ç
-int C_MAI_CED = 128; //Ç
-int A_MIN_AGU = 160; //à
-int A_MAI_AGU = 134; //À
-int A_MIN_GRA = 133; //á
-int A_MAI_GRA = 145; //Á
-int O_MIN_TIL = 148; //õ
 
-//Simbolos de tabela
-int BARRA_VERTICAL = 186; 
-int BARRA_HORIZONTAL_LD = 185;
-int BARRA_HORIZONTAL_LE = 204;
-int BARRA_HORIZONTAL = 205;
-int BARRA_HORIZONTAL_U = 202;
-int BARRA_HORIZONTAL_D = 203;
-int CNT_SD = 187;        
-int CNT_SE = 201;
-int CNT_ID = 188;
-int CNT_IE = 200;
-int O_ASPAS = 34;
-int C_ASPAS = 34;
 
 
 void init()
@@ -69,8 +44,13 @@ void init()
 	top(50);
 	printf("%c        GERA%c%cO ALEAT%cRIA DE UM CALEND%cRIO        %c\n",BARRA_VERTICAL, C_MAI_CED, A_MAI_TIL, O_MAI_ACE, A_MAI_AGU, BARRA_VERTICAL);
 	printf("%c    Calend%crio do tipo %cCalend%crio do ADVENTO%c    %c\n",BARRA_VERTICAL, A_MIN_AGU, C_ASPAS, A_MIN_AGU, O_ASPAS, BARRA_VERTICAL);
-	printf("%c                      ANO %4d                    %c\n", BARRA_VERTICAL, 0000, BARRA_VERTICAL);
-	if (alunos != NULL)printalunos();
+	printf("%c                      ANO %4d                    %c\n", BARRA_VERTICAL, ANO, BARRA_VERTICAL);
+	if (alunos != NULL) {
+		for (int i = 1; i <= NUM_ALUNOS; i++)
+		{
+			printalunos(i);
+		}
+	}
 	printf("%c                                                  %c\n", BARRA_VERTICAL, BARRA_VERTICAL);
 	printf("%c                                                  %c\n", BARRA_VERTICAL, BARRA_VERTICAL);
 	linhacon(50);
@@ -95,13 +75,18 @@ char menu()
 	return resposta;
 }
 
-void printalunos()
+void printalunos(int i)
 {
-	for(int i = 0; i < NUM_ALUNOS; i++)
-	{
-		printf("Aluno %d - N%c %5d Nome: %s %s", i, 167, alunos [i].num, alunos [i].nome, alunos [i].apelido);
-	}
+		printf("Aluno %d - N%c %5d Nome: %s %s", i, 167, alunos [i-1].num, alunos [i-1].nome, alunos [i-1].apelido);
 }
+
+int STAGE = 1; //Fase de inscrição
+int ALUNO = 1; //Aluno nº
+int STAGE_ALUNO1 = 1; //Fase aluno1
+int STAGE_ALUNO2 = 1; //Fase aluno2
+
+int TEMP1;
+int TEMP2;
 
 void inscaluno()
 {
@@ -109,38 +94,135 @@ void inscaluno()
 	init();
 	printf("%c             Informa%c%ces de Cabe%calho             %c\n", BARRA_VERTICAL, C_MIN_CED, O_MIN_TIL, C_MIN_CED, BARRA_VERTICAL);
 	linhacon(50);
-	printf("%c Quantos alunos est%co no grupo? [1 ou 2]          %c\n", BARRA_VERTICAL, A_MIN_TIL, BARRA_VERTICAL);
-	bot(50);
-	printf("\n>");
-	scanf_s(" %d", &NUM_ALUNOS);
-	if (NUM_ALUNOS != 1)
-	{
-		if (NUM_ALUNOS != 2){
-			printf(" Numero inválido!");
-			NUM_ALUNOS = 0;
-			Sleep(250);
+	switch (STAGE) { //varias fases
+	case 1: //Numero de alunos
+		printf("%c Quantos alunos est%co no grupo?          [1 ou 2] %c\n", BARRA_VERTICAL, A_MIN_TIL, BARRA_VERTICAL);
+		bot(50);
+		printf("\n>");
+		scanf_s(" %d", &NUM_ALUNOS);
+		if (NUM_ALUNOS == 1 || NUM_ALUNOS == 2)
+		{
+			STAGE = 2;
 			inscaluno();
 		}
+		else {
+			printf(" Numero inválido!");
+			STAGE = 1;
+			NUM_ALUNOS = 0;
+			Sleep(500);
+			inscaluno();
+		}
+		break;
+	case 2://Numero, Nome, Apelido
+		alunos = (aluno *)malloc(NUM_ALUNOS * sizeof(aluno));
+		if (alunos == NULL)
+		{
+			printf("Correu algo de errado com a aloca%c%co de mem%cria.\n", C_MIN_CED, A_MIN_TIL, O_MIN_ACE);
+			Sleep(1500);
+			sair();
+		}
+		switch (ALUNO) {
+		case 1:
+			switch (STAGE_ALUNO1) {
+			case 1:
+				alunos[1].num = 0;
+				alunos[1].nome[1] = '\0';
+				alunos[1].apelido[1] = '\0';
+				printf("%c Qual %c o n%cmero do Aluno-1?        [10000-45000] %c\n\n>", BARRA_VERTICAL, E_MIN_ACE, U_MIN_ACE, BARRA_VERTICAL);
+				scanf_s(" %d", alunos[1].num, 5);
+				if ((alunos[1].num >= 10000) && (alunos[1].num <= 45000)) {
+					STAGE_ALUNO1 = 2;
+					inscaluno();
+				}
+				else {
+					printf(" Numero inválido!");
+					STAGE_ALUNO1 = 1;
+					Sleep(500);
+					inscaluno();
+				}
+				break;
+			case 2:
+				printf("%c Qual %c o nome do Aluno-1?                        %c\n\n>", BARRA_VERTICAL, E_MIN_ACE, U_MIN_ACE, BARRA_VERTICAL);
+				scanf_s("%s", alunos[1].nome, 10);
+				STAGE_ALUNO1 = 3;
+				inscaluno();
+				break;
+			case 3:
+				printf("%c Qual %c o apelido do Aluno-1?                     %c\n\n>", BARRA_VERTICAL, E_MIN_ACE, U_MIN_ACE, BARRA_VERTICAL);
+				scanf_s("%s", alunos[1].apelido, 10);
+				STAGE_ALUNO1 = 0;
+				if (NUM_ALUNOS == 1) {
+					STAGE = 3;
+				}
+				else if (NUM_ALUNOS == 2){
+					ALUNO = 2;
+				}
+				inscaluno();
+				break;
+			}
+			break;
+		case 2:
+			switch (STAGE_ALUNO2) {
+			case 1:
+				alunos[2].nome[2] = '\0';
+				alunos[2].apelido[2] = '\0';
+				printf("%c Qual %c o n%cmero do Aluno-2?        [10000-45000] %c\n\n>", BARRA_VERTICAL, E_MIN_ACE, U_MIN_ACE, BARRA_VERTICAL);
+				scanf_s(" %d", TEMP2, 5);
+				if ((TEMP2 >= 10000) && (TEMP2 <= 45000)) {
+					alunos[2].num = TEMP2;
+					STAGE_ALUNO2 = 2;
+					inscaluno();
+				}
+				else {
+					printf(" Numero inválido!");
+					STAGE_ALUNO2 = 1;
+					Sleep(500);
+					inscaluno();
+				}
+				break;
+			case 2:
+				printf("%c Qual %c o nome do Aluno-2?                        %c\n\n>", BARRA_VERTICAL, E_MIN_ACE, U_MIN_ACE, BARRA_VERTICAL);
+				scanf_s("%s", alunos[2].nome, 10);
+				STAGE_ALUNO2 = 3;
+				inscaluno();
+				break;
+			case 3:
+				printf("%c Qual %c o apelido do Aluno-2?                     %c\n\n>", BARRA_VERTICAL, E_MIN_ACE, U_MIN_ACE, BARRA_VERTICAL);
+				scanf_s("%s", alunos[2].apelido, 10);
+				STAGE_ALUNO2 = 0;
+				STAGE = 3;
+				inscaluno();
+				break;
+			}
+			break;
+		}
+		break;
 	}
-	alunos = (aluno *)malloc(NUM_ALUNOS * sizeof(aluno));
-	if (alunos==NULL)
-	{
-		printf("Correu algo de errado com a aloca%c%co de mem%cria.\n", C_MIN_CED, A_MIN_TIL, O_MIN_ACE);
-		Sleep(1500);
-		sair();
-	}
+	/*
+	
+	else {
+		alunos = (aluno *)malloc(NUM_ALUNOS * sizeof(aluno));
+		if (alunos == NULL)
+		{
+			printf("Correu algo de errado com a aloca%c%co de mem%cria.\n", C_MIN_CED, A_MIN_TIL, O_MIN_ACE);
+			Sleep(1500);
+			sair();
+		}
 
-	for ( int i = 0; i < NUM_ALUNOS; i++)
-	{
-		alunos[i].nome  [i] = '\0';
-		alunos[i].apelido [i] = '\0';
-		printf("Qual é o número de aluno do Aluno %d?\n\n>", i);
-		scanf_s(" %d", &alunos[i].num);
-		printf("Qual é o nome do Aluno %d?\n\n>", i);
-		scanf_s(" %s", &alunos[i].nome);
-		printf("Qual é o apelido do Aluno %d?\n\n>", i);
-		scanf_s(" %s", &alunos[i].apelido);
+		if ( alunos[i].num)
+			for (int i = 0; i < NUM_ALUNOS; i++)
+			{
+				alunos[i].nome[i] = '\0';
+				alunos[i].apelido[i] = '\0';
+				printf("Qual %c o n%cmero de aluno do Aluno-%d?\n\n>", E_MIN_ACE, U_MIN_ACE, i + 1);
+				scanf_s(" %d", &alunos[i].num, 5);
+				printf("Qual é o nome do Aluno-%d?\n\n>", i + 1);
+				scanf_s("%s", alunos[i].nome, 10);
+				printf("Qual é o apelido do Aluno-%d?\n\n>", i + 1);
+				scanf_s("%s", alunos[i].apelido, 10);
+			}
 	}
+	*/
 }
 
 void sair(){
@@ -157,9 +239,6 @@ void sair(){
 	Sleep(500);
 	exit(1);
 }
-
-
-
 
 //Aparencia
 void top(int i)
