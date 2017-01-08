@@ -6,7 +6,6 @@
 #include <stdbool.h>
 #include <clocale>
 #include "menus.h"
-#include "langhelper.h"
 
 void main()
 {	

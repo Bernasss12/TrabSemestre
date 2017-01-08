@@ -1,3 +1,17 @@
-﻿  LINK : E:\trabsem\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.exe not found or not built by the last incremental link; performing full link
-  ProjetoSemestre.vcxproj -> E:\trabsem\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.exe
-  ProjetoSemestre.vcxproj -> E:\trabsem\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.pdb (Partial PDB)
+﻿  main.cpp
+d:\trabsemestre\projetosemestre\projetosemestre\menus.h(132): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'int'
+d:\trabsemestre\projetosemestre\projetosemestre\menus.h(132): warning C4474: 'scanf_s' : too many arguments passed for format string
+  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(132): note: placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+d:\trabsemestre\projetosemestre\projetosemestre\menus.h(153): warning C4474: 'printf' : too many arguments passed for format string
+  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(153): note: placeholders and their parameters expect 3 variadic arguments, but 4 were provided
+d:\trabsemestre\projetosemestre\projetosemestre\menus.h(159): warning C4474: 'printf' : too many arguments passed for format string
+  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(159): note: placeholders and their parameters expect 3 variadic arguments, but 4 were provided
+d:\trabsemestre\projetosemestre\projetosemestre\menus.h(178): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'int'
+d:\trabsemestre\projetosemestre\projetosemestre\menus.h(178): warning C4474: 'scanf_s' : too many arguments passed for format string
+  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(178): note: placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+d:\trabsemestre\projetosemestre\projetosemestre\menus.h(192): warning C4474: 'printf' : too many arguments passed for format string
+  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(192): note: placeholders and their parameters expect 3 variadic arguments, but 4 were provided
+d:\trabsemestre\projetosemestre\projetosemestre\menus.h(198): warning C4474: 'printf' : too many arguments passed for format string
+  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(198): note: placeholders and their parameters expect 3 variadic arguments, but 4 were provided
+  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.exe
+  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.pdb (Partial PDB)

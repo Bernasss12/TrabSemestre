@@ -123,16 +123,24 @@ void inscaluno()
 		}
 		switch (ALUNO) {
 		case 1:
+			alunos[1].num = 0;
+			alunos[1].nome[1] = '\0';
+			alunos[1].apelido[1] = '\0';
 			switch (STAGE_ALUNO1) {
 			case 1:
-				alunos[1].num = 0;
-				alunos[1].nome[1] = '\0';
-				alunos[1].apelido[1] = '\0';
 				printf("%c Qual %c o n%cmero do Aluno-1?        [10000-45000] %c\n\n>", BARRA_VERTICAL, E_MIN_ACE, U_MIN_ACE, BARRA_VERTICAL);
 				scanf_s(" %d", alunos[1].num, 5);
-				if ((alunos[1].num >= 10000) && (alunos[1].num <= 45000)) {
-					STAGE_ALUNO1 = 2;
-					inscaluno();
+				if (alunos[1].num >= 10000) {
+					if (alunos[1].num <= 45000){
+						STAGE_ALUNO1 = 2;
+						inscaluno();
+					}
+					else {
+						printf(" Numero inválido!");
+						STAGE_ALUNO1 = 1;
+						Sleep(500);
+						inscaluno();
+					}
 				}
 				else {
 					printf(" Numero inválido!");
@@ -142,13 +150,13 @@ void inscaluno()
 				}
 				break;
 			case 2:
-				printf("%c Qual %c o nome do Aluno-1?                        %c\n\n>", BARRA_VERTICAL, E_MIN_ACE, U_MIN_ACE, BARRA_VERTICAL);
+				printf("%c Qual %c o nome do Aluno-1?                        %c\n\n>", BARRA_VERTICAL, E_MIN_ACE, BARRA_VERTICAL);
 				scanf_s("%s", alunos[1].nome, 10);
 				STAGE_ALUNO1 = 3;
 				inscaluno();
 				break;
 			case 3:
-				printf("%c Qual %c o apelido do Aluno-1?                     %c\n\n>", BARRA_VERTICAL, E_MIN_ACE, U_MIN_ACE, BARRA_VERTICAL);
+				printf("%c Qual %c o apelido do Aluno-1?                     %c\n\n>", BARRA_VERTICAL, E_MIN_ACE, BARRA_VERTICAL);
 				scanf_s("%s", alunos[1].apelido, 10);
 				STAGE_ALUNO1 = 0;
 				if (NUM_ALUNOS == 1) {
@@ -191,6 +199,9 @@ void inscaluno()
 				scanf_s("%s", alunos[2].apelido, 10);
 				STAGE_ALUNO2 = 0;
 				STAGE = 3;
+				inscaluno();
+				break;
+			default:
 				inscaluno();
 				break;
 			}
