@@ -12,11 +12,12 @@ void main()
 {	
 	int MENU_INPUT = 0;
 	int OPERACAO_INPUT = 0;
-	ANO = 2016;
-	generateCalendar();
-	printCalendar();
 
-	/*
+	//ANO = 2015;
+
+	//generateCalendar(ANO);
+	//printCalendar();
+	
 	//Menu 1, decisão
 	while (MENU_INPUT != 1){
 		switch (menu()) {
@@ -40,6 +41,7 @@ void main()
 		}
 	}
 
+	/*
 	//Menu 2, opções
 	while (OPERACAO_INPUT != 1) {
 		switch (menu()) {
@@ -60,12 +62,12 @@ void main()
 			break;
 		}
 	}
-
+	*/
 
 
 	system("cls");
 	init();
-	*/
+	
 	system("pause");
 }
 

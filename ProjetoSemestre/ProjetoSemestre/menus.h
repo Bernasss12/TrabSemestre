@@ -5,7 +5,7 @@
 #include <windows.h>
 #include "langhelper.h"
 
-typedef struct
+typedef struct 
 {
 	int num;
 	char nome[10];
@@ -43,6 +43,10 @@ int ANO = 0;
 
 void init()
 {
+	int ESP;
+	int ESP_ESQ;
+	int ESP_DIR;
+
 	setlocale(LC_ALL, "Portuguese_Portugal.860");
 	printf("");
 	top(50);
@@ -55,9 +59,16 @@ void init()
 	if (NUM_ALUNOS != NULL){
 		for (int i = 0; i < NUM_ALUNOS; i++)
 		{
-			float ESP = ((26.5 - strlen(alunos[i].nome)) - strlen(alunos[i].apelido))/2;
-			int ESP_DIR  = (int)floor(ESP);
-			int ESP_ESQ = (int)ceil(ESP);
+			
+			ESP = floor(((26 - strlen(alunos[i].nome)) - strlen(alunos[i].apelido))/2);
+			if (ESP % 2 == 0) {
+				ESP_DIR = (int)floor(ESP) + 1;
+				ESP_ESQ = (int)floor(ESP);
+			} else
+			{
+				ESP_DIR = (int)floor(ESP);
+				ESP_ESQ = (int)floor(ESP);
+			}
 
 			ico(BARRA_VERTICAL);
 			space(ESP_ESQ);
@@ -67,7 +78,7 @@ void init()
 			printf("%s", alunos[i].apelido);
 			space(ESP_DIR);
 			ico(BARRA_VERTICAL);
-			//printf("%f %d %d %d %d", ESP, ESP_ESQ, ESP_DIR, strlen(alunos[i].nome), strlen(alunos[i].apelido)); //Debug
+			//printf("ESP:%d ESPE:%d ESPD:%d NOME:%d APELIDO:%d", ESP, ESP_ESQ, ESP_DIR, strlen(alunos[i].nome), strlen(alunos[i].apelido)); //Debug
 			printf("\n");
 		}
 	}
@@ -89,9 +100,17 @@ char menu()
 	printf("%c Desejo sair do programa.      %c", BARRA_VERTICAL, BARRA_VERTICAL);printf( " Insira 'S'       %c\n", BARRA_VERTICAL);
 	bot_U(50, 31);
 	printf("\n>");
-	scanf(" %c", &resposta);
-	resposta = toupper(resposta);
-	return resposta;
+	
+	do {
+		scanf(" %c", &resposta);
+		resposta = toupper(resposta);
+		if(resposta == 'T' || resposta == 'S' || resposta == 'F'){
+			return resposta;
+		}
+		printf("\033[A \r>(Resposta inv%clida!)", A_MIN_AGU);
+		Sleep(500);
+		printf("\33[2K\r>");
+	} while (!(resposta == 'T' || resposta == 'S' || resposta == 'F'));
 }
 
 int STAGE = 1; //Fase de inscrição
@@ -113,7 +132,7 @@ void inscaluno()
 	}
 
 	if (alunos == NULL) {//Alocação dinâmica da memoria para os alunos.
-		alunos = (aluno *)malloc(NUM_ALUNOS * sizeof(aluno));
+		alunos = (aluno*)malloc(NUM_ALUNOS * sizeof(aluno));
 	}
 
 	for (int i = 0; i < NUM_ALUNOS; i++)
@@ -155,7 +174,7 @@ void inscaluno()
 void callInfo(){
 	system("cls");
 	init();
-	printf("%c Qual o ano do calend%crio que pretende gerar?     %c\n", BARRA_VERTICAL, E_MIN_ACE, BARRA_VERTICAL);
+	printf("%c Qual o ano do calend%crio que pretende gerar?     %c\n", BARRA_VERTICAL, A_MIN_AGU, BARRA_VERTICAL);
 	bot(50);
 	printf("\n>");
 	scanf("%d", &ANO);
