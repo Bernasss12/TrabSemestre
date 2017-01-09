@@ -113,6 +113,7 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="calendario.h" />
     <ClInclude Include="langhelper.h" />
     <ClInclude Include="menus.h" />
   </ItemGroup>

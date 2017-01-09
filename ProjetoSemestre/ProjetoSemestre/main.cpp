@@ -6,24 +6,27 @@
 #include <stdbool.h>
 #include <clocale>
 #include "menus.h"
+#include "calendario.h"
 
 void main()
 {	
 	int MENU_INPUT = 0;
+	int OPERACAO_INPUT = 0;
+	ANO = 2016;
+	generateCalendar();
+	printCalendar();
 
-	setlocale(LC_ALL, "pt-PT");
-	linha(50);
-
+	/*
 	//Menu 1, decisão
 	while (MENU_INPUT != 1){
 		switch (menu()) {
 		case 'T':
-			printf("Input Teclado\n");
+			//printf("Input Teclado\n"); //Debug
 			inscaluno();
 			MENU_INPUT = 1;	
 			break;
-		case 'F':
-			printf("Input Ficheiro\n");
+		case 'F'://TODO
+			//printf("Input Ficheiro\n"); //Debug
 			MENU_INPUT = 1;
 			break;
 		case 'S':
@@ -31,10 +34,38 @@ void main()
 			sair();
 			break;
 		default:
+			printf("\033[A \r>(Resposta inv%clida!)", A_MIN_AGU);
+			Sleep(500);
 			break;
 		}
 	}
 
+	//Menu 2, opções
+	while (OPERACAO_INPUT != 1) {
+		switch (menu()) {
+		case 1:			
+			OPERACAO_INPUT = 1;
+			break;
+		case 2://TODO
+			printf("Input Ficheiro\n");
+			OPERACAO_INPUT = 1;
+			break;
+		case 3:
+			OPERACAO_INPUT = 1;
+			sair();
+			break;
+		default:
+			printf("\033[A \r>(Op%c%co inv%clida!)", C_MIN_CED, A_MIN_TIL, A_MIN_AGU);
+			Sleep(500);
+			break;
+		}
+	}
+
+
+
+	system("cls");
+	init();
+	*/
 	system("pause");
 }
 

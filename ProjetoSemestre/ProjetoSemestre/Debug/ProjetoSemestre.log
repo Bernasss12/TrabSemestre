@@ -1,17 +1,57 @@
 ﻿  main.cpp
-d:\trabsemestre\projetosemestre\projetosemestre\menus.h(132): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'int'
-d:\trabsemestre\projetosemestre\projetosemestre\menus.h(132): warning C4474: 'scanf_s' : too many arguments passed for format string
-  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(132): note: placeholders and their parameters expect 1 variadic arguments, but 2 were provided
-d:\trabsemestre\projetosemestre\projetosemestre\menus.h(153): warning C4474: 'printf' : too many arguments passed for format string
-  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(153): note: placeholders and their parameters expect 3 variadic arguments, but 4 were provided
-d:\trabsemestre\projetosemestre\projetosemestre\menus.h(159): warning C4474: 'printf' : too many arguments passed for format string
-  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(159): note: placeholders and their parameters expect 3 variadic arguments, but 4 were provided
-d:\trabsemestre\projetosemestre\projetosemestre\menus.h(178): warning C4477: 'scanf_s' : format string '%d' requires an argument of type 'int *', but variadic argument 1 has type 'int'
-d:\trabsemestre\projetosemestre\projetosemestre\menus.h(178): warning C4474: 'scanf_s' : too many arguments passed for format string
-  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(178): note: placeholders and their parameters expect 1 variadic arguments, but 2 were provided
-d:\trabsemestre\projetosemestre\projetosemestre\menus.h(192): warning C4474: 'printf' : too many arguments passed for format string
-  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(192): note: placeholders and their parameters expect 3 variadic arguments, but 4 were provided
-d:\trabsemestre\projetosemestre\projetosemestre\menus.h(198): warning C4474: 'printf' : too many arguments passed for format string
-  d:\trabsemestre\projetosemestre\projetosemestre\menus.h(198): note: placeholders and their parameters expect 3 variadic arguments, but 4 were provided
-  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.exe
-  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.pdb (Partial PDB)
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(58): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(13): error C2371: 'aluno': redefinition; different basic types
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(13): note: see declaration of 'aluno'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(15): error C2086: 'aluno *alunos': redefinition
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(15): note: see declaration of 'alunos'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(36): error C2371: 'NUM_ALUNOS': redefinition; different basic types
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(36): note: see declaration of 'NUM_ALUNOS'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(37): error C2374: 'NUM_ALUNO': redefinition; multiple initialization
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(37): note: see declaration of 'NUM_ALUNO'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(38): error C2374: 'ANO': redefinition; multiple initialization
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(38): note: see declaration of 'ANO'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(45): error C2084: function 'void init(void)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(44): note: see previous definition of 'init'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(58): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(79): error C2084: function 'char menu(void)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(78): note: see previous definition of 'menu'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(97): error C2374: 'STAGE': redefinition; multiple initialization
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(97): note: see declaration of 'STAGE'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(98): error C2374: 'ALUNO': redefinition; multiple initialization
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(98): note: see declaration of 'ALUNO'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(99): error C2374: 'STAGE_ALUNO1': redefinition; multiple initialization
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(99): note: see declaration of 'STAGE_ALUNO1'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(100): error C2374: 'STAGE_ALUNO2': redefinition; multiple initialization
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(100): note: see declaration of 'STAGE_ALUNO2'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(102): error C2086: 'int TEMP1': redefinition
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(102): note: see declaration of 'TEMP1'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(103): error C2086: 'int TEMP2': redefinition
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(103): note: see declaration of 'TEMP2'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(106): error C2084: function 'void inscaluno(void)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(105): note: see previous definition of 'inscaluno'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(155): error C2084: function 'void callInfo(void)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(155): note: see previous definition of 'callInfo'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(164): error C2084: function 'int numAlunos(void)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(164): note: see previous definition of 'numAlunos'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(182): error C2084: function 'void sair(void)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(182): note: see previous definition of 'sair'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(202): error C2084: function 'void ico(int)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(202): note: see previous definition of 'ico'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(207): error C2084: function 'void top(int)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(206): note: see previous definition of 'top'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(214): error C2084: function 'void bot(int)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(213): note: see previous definition of 'bot'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(221): error C2084: function 'void linhacon(int)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(220): note: see previous definition of 'linhacon'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(230): error C2084: function 'void linha(int)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(229): note: see previous definition of 'linha'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(237): error C2084: function 'void linhacon_IU(int,int)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(236): note: see previous definition of 'linhacon_IU'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(246): error C2084: function 'void linhacon_ID(int,int)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(245): note: see previous definition of 'linhacon_ID'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(255): error C2084: function 'void bot_U(int,int)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(254): note: see previous definition of 'bot_U'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(264): error C2084: function 'void top_D(int,int)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(263): note: see previous definition of 'top_D'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(272): error C2084: function 'void space(int)' already has a body
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(272): note: see previous definition of 'space'
