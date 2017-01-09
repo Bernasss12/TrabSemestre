@@ -204,6 +204,8 @@ void sair(){
 	if (alunos != NULL) {
 		free(alunos);
 	}
+	
+	freeCal();
 
 	system("cls");
 	init();

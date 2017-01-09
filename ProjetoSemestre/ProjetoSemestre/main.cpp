@@ -8,38 +8,25 @@
 #include "menus.h"
 #include "calendario.h"
 
+void menuPrincipal();
+void scan();
+
 void main()
-{	
-	int MENU_INPUT = 0;
+{
 	int OPERACAO_INPUT = 0;
 
 	//ANO = 2015;
 
-	//generateCalendar(ANO);
-	//printCalendar();
-	
+	generateCalendar(2000);
+	printMonth(11);
+	system("pause");
+	system("cls");
+	findOnCalendar(scanf("%c"));
+	system("pause");
+
+	sair();
 	//Menu 1, decisão
-	while (MENU_INPUT != 1){
-		switch (menu()) {
-		case 'T':
-			//printf("Input Teclado\n"); //Debug
-			inscaluno();
-			MENU_INPUT = 1;	
-			break;
-		case 'F'://TODO
-			//printf("Input Ficheiro\n"); //Debug
-			MENU_INPUT = 1;
-			break;
-		case 'S':
-			MENU_INPUT = 1;
-			sair();
-			break;
-		default:
-			printf("\033[A \r>(Resposta inv%clida!)", A_MIN_AGU);
-			Sleep(500);
-			break;
-		}
-	}
+	menuPrincipal();
 
 	/*
 	//Menu 2, opções
@@ -71,3 +58,33 @@ void main()
 	system("pause");
 }
 
+void menuPrincipal(){
+int MENU_INPUT = 0;
+	while (MENU_INPUT != 1) {
+		switch (menu()) {
+		case 'T':
+			//printf("Input Teclado\n"); //Debug
+			inscaluno();
+			MENU_INPUT = 1;
+			break;
+		case 'F'://TODO
+				 //printf("Input Ficheiro\n"); //Debug
+			MENU_INPUT = 1;
+			break;
+		case 'S':
+			MENU_INPUT = 1;
+			sair();
+			break;
+		default:
+			printf("\033[A \r>(Resposta inv%clida!)", A_MIN_AGU);
+			Sleep(500);
+			break;
+		}
+	}
+}
+
+void scan() {
+	char TEMP;
+	scanf_s("%c", &TEMP);
+	printf(" %3d \n", TEMP);
+}
