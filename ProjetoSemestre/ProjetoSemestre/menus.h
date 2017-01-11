@@ -4,6 +4,7 @@
 #include <ctype.h>
 #include <windows.h>
 #include "langhelper.h"
+#include "calendario.h"
 
 typedef struct 
 {
@@ -18,22 +19,11 @@ void init();
 char menu();
 void sair();
 
-void ico(int);
-void linha(int);
-void linhacon(int);
-void linhacon_ID(int, int);
-void linhacon_IU(int, int);
-void top_D(int, int);
-void bot_U(int, int);
-void top(int);
-void bot(int);
-void space(int);
-
 void callInfo();
 int numAlunos();
 
 //Default de Cabeçalho
-auto NUM_ALUNOS = NULL;
+int NUM_ALUNOS = NULL;
 int NUM_ALUNO = 10000;
 int ANO = 0;
 
@@ -41,7 +31,7 @@ int ANO = 0;
 
 
 
-void init()
+inline void init()
 {
 	int ESP;
 	int ESP_ESQ;
@@ -86,7 +76,7 @@ void init()
 	linhacon(50);
 }
 
-char menu()
+inline char menu()
 {
 	system("cls");
 	init();
@@ -111,17 +101,14 @@ char menu()
 		Sleep(500);
 		printf("\33[2K\r>");
 	} while (!(resposta == 'T' || resposta == 'S' || resposta == 'F'));
-}
 
-int STAGE = 1; //Fase de inscrição
-int ALUNO = 1; //Aluno nº
-int STAGE_ALUNO1 = 1; //Fase aluno1
-int STAGE_ALUNO2 = 1; //Fase aluno2
+	return 0;
+}
 
 int TEMP1;
 int TEMP2;
 
-void inscaluno()
+inline void inscaluno()
 {
 	system("cls");
 	init();
@@ -171,7 +158,7 @@ void inscaluno()
 	callInfo();
 }
 
-void callInfo(){
+inline void callInfo(){
 	system("cls");
 	init();
 	printf("%c Qual o ano do calend%crio que pretende gerar?     %c\n", BARRA_VERTICAL, A_MIN_AGU, BARRA_VERTICAL);
@@ -180,7 +167,7 @@ void callInfo(){
 	scanf("%d", &ANO);
 }
 
-int numAlunos(){
+inline int numAlunos(){
 	system("cls");
 	init();
 	printf("%c Quantos alunos est%co no grupo?          [1 ou 2] %c\n", BARRA_VERTICAL, A_MIN_TIL, BARRA_VERTICAL);
@@ -198,7 +185,7 @@ int numAlunos(){
 	return NUM_ALUNOS;
 }
 
-void sair(){
+inline void sair(){
 	int COUNTDOWN = 3;
 
 	if (alunos != NULL) {
@@ -219,79 +206,3 @@ void sair(){
 	exit(1);
 }//FALTA FECHAR FICHEIROS E DESALOCAR MEMORIA
 
-//Aparencia
-void ico(int i) {
-	printf("%c", i);
-}
-
-void top(int i)
-{
-	printf("%c", CNT_SE);
-	linha(i);
-	printf("%c\n", CNT_SD);
-}
-
-void bot(int i)
-{
-	printf("%c", CNT_IE);
-	linha(i);
-	printf("%c\n", CNT_ID);
-}
-
-void linhacon(int i)
-{
-	printf("%c", BARRA_HORIZONTAL_LE);
-	for (int j = 0; j < i; j++) {
-		printf("%c", BARRA_HORIZONTAL);
-	}
-	printf("%c\n", BARRA_HORIZONTAL_LD);
-}
-
-void linha(int i)
-{
-	for (int j = 0; j < i; j++) {
-		printf("%c", BARRA_HORIZONTAL);
-	}
-}
-
-void linhacon_IU(int i, int j)
-{
-	printf("%c", BARRA_HORIZONTAL_LE);
-	linha(j);
-	printf("%c", BARRA_HORIZONTAL_U);
-	linha(i - j - 1);
-	printf("%c\n", BARRA_HORIZONTAL_LD);
-}
-
-void linhacon_ID(int i, int j)
-{
-	printf("%c", BARRA_HORIZONTAL_LE);
-	linha(j);
-	printf("%c", BARRA_HORIZONTAL_D);
-	linha(i - j - 1);
-	printf("%c\n", BARRA_HORIZONTAL_LD);
-}
-
-void bot_U(int i, int j)
-{
-	printf("%c", CNT_IE);
-	linha(j);
-	printf("%c", BARRA_HORIZONTAL_U);
-	linha(i - j - 1);
-	printf("%c\n", CNT_ID);
-}
-
-void top_D(int i, int j)
-{
-	printf("%c", CNT_SE);
-	linha(j);
-	printf("%c", BARRA_HORIZONTAL_D);
-	linha(i - j - 1);
-	printf("%c\n", CNT_SD);
-}
-
-void space(int i){
-	for (int j = 0; j < i; j++) {
-		printf(" ");
-	}
-}

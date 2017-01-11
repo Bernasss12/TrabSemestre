@@ -13,7 +13,7 @@ void freeCal();
 int **DIAS_ANO;
 int DIAS_NO_MES[12] = {31,0,31,30,31,30,31,31,30,31,30,31};
 
-void generateCalendar(int ANO)
+inline void generateCalendar(int ANO)
 {
 	if ((ANO % 4 == 0 && ANO % 100 != 0) || ANO % 400 == 0) {
 		DIAS_NO_MES[1] = { 29 };
@@ -40,7 +40,7 @@ void generateCalendar(int ANO)
 	}
 }
 
-void printCalendar() {
+inline void printCalendar() {
 	int LINE = 7;
 	for (int i = 0; i < 12; i++) {
 		meS(i);
@@ -57,7 +57,7 @@ void printCalendar() {
 	}
 }
 
-void printMonth(int mes) {
+inline void printMonth(int mes) {
 	meS(mes);
 	int LINE = 7;
 	for (int j = 0; j < DIAS_NO_MES[mes]; j++) {
@@ -71,11 +71,11 @@ void printMonth(int mes) {
 	printf("\n");
 }
 
-void printDay(int mes, int dia) {
+inline void printDay(int mes, int dia) {
 
 }
 
-void findOnCalendar(char c) {
+inline void findOnCalendar(char c) {
 	c = toupper(c);
 	printf("A letra %c pode ser encontrada em:", c);
 	for (int i = 0; i < 12; i++) {
@@ -89,7 +89,7 @@ void findOnCalendar(char c) {
 	}
 }
 
-void meS(int mes) {
+inline void meS(int mes) {
 	switch(mes + 1){
 	case 1:
 		printf("Janeiro");
@@ -131,7 +131,7 @@ void meS(int mes) {
 	printf("\n");
 }
 
-void freeCal(){
+inline void freeCal(){
 	if (DIAS_ANO != NULL) {
 		free(DIAS_ANO);
 	}

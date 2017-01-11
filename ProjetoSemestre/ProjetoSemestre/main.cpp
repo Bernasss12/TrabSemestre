@@ -9,7 +9,6 @@
 #include "calendario.h"
 
 void menuPrincipal();
-void scan();
 
 void main()
 {
@@ -81,10 +80,4 @@ int MENU_INPUT = 0;
 			break;
 		}
 	}
-}
-
-void scan() {
-	char TEMP;
-	scanf_s("%c", &TEMP);
-	printf(" %3d \n", TEMP);
 }

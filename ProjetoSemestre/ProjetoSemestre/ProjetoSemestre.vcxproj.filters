@@ -29,5 +29,8 @@
     <ClInclude Include="calendario.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="filehandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
