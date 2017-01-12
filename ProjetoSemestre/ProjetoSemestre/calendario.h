@@ -1,6 +1,8 @@
+#pragma once
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "menus.h"
 
 void generateCalendar(int);
 void printCalendar();
@@ -28,10 +30,27 @@ inline void generateCalendar(int ANO)
 	}
 
 	if (DIAS_ANO == NULL) {
-		sair(); 
+			int COUNTDOWN = 3;
+
+			if (alunos != NULL) {
+				free(alunos);
+			}
+
+			freeCal();
+
+			system("cls");
+			init();
+			printf("                                        \033[A\33[2k\r");
+			bot(50);
+			while (COUNTDOWN != 0) {
+				printf("\33[k\rA sair do programa em %d segundos...", COUNTDOWN);
+				Sleep(1000);
+				COUNTDOWN--;
+			}
+			exit(1);
 	}
 
-	srand(time(NULL));
+	srand((unsigned)time(NULL));
 
 	for (int i = 0; i < 12; i++) {
 		for (int j = 0; j < DIAS_NO_MES[i]; j++) {
@@ -39,7 +58,6 @@ inline void generateCalendar(int ANO)
 		}
 	}
 }
-
 inline void printCalendar() {
 	int LINE = 7;
 	for (int i = 0; i < 12; i++) {
@@ -56,7 +74,6 @@ inline void printCalendar() {
 		LINE = 7;
 	}
 }
-
 inline void printMonth(int mes) {
 	meS(mes);
 	int LINE = 7;
@@ -70,11 +87,9 @@ inline void printMonth(int mes) {
 	}
 	printf("\n");
 }
-
 inline void printDay(int mes, int dia) {
 
 }
-
 inline void findOnCalendar(char c) {
 	c = toupper(c);
 	printf("A letra %c pode ser encontrada em:", c);
@@ -88,7 +103,6 @@ inline void findOnCalendar(char c) {
 		}
 	}
 }
-
 inline void meS(int mes) {
 	switch(mes + 1){
 	case 1:
@@ -130,7 +144,6 @@ inline void meS(int mes) {
 	}
 	printf("\n");
 }
-
 inline void freeCal(){
 	if (DIAS_ANO != NULL) {
 		free(DIAS_ANO);

@@ -13,6 +13,7 @@ void menuPrincipal();
 void main()
 {
 	int OPERACAO_INPUT = 0;
+	char TMP = '0';
 
 	//ANO = 2015;
 
@@ -20,7 +21,9 @@ void main()
 	printMonth(11);
 	system("pause");
 	system("cls");
-	findOnCalendar(scanf("%c"));
+	printf("> ");
+	scanf(" %c", &TMP);
+	findOnCalendar(TMP);
 	system("pause");
 
 	sair();

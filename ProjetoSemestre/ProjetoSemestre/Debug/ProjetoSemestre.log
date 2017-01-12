@@ -1,11 +1,5 @@
 ﻿  main.cpp
-e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(63): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(208): error C3861: 'freeCal': identifier not found
-e:\trabsem\trabsemestre\projetosemestre\projetosemestre\calendario.h(34): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-e:\trabsem\trabsemestre\projetosemestre\projetosemestre\main.cpp(24): warning C4473: 'scanf' : not enough arguments passed for format string
-  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\main.cpp(24): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
-  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\main.cpp(24): note: the missing variadic argument 1 is required by format string '%c'
-e:\trabsem\trabsemestre\projetosemestre\projetosemestre\main.cpp(88): warning C4473: 'scanf_s' : not enough arguments passed for format string
-  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\main.cpp(88): note: placeholders and their parameters expect 2 variadic arguments, but 1 were provided
-  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\main.cpp(88): note: the missing variadic argument 2 is required by format string '%c'
-  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\main.cpp(88): note: this argument is used as a buffer size
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\calendario.h(35): error C2065: 'alunos': undeclared identifier
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\calendario.h(36): error C2065: 'alunos': undeclared identifier
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\calendario.h(42): error C3861: 'init': identifier not found
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(54): warning C4244: '=': conversion from 'double' to 'int', possible loss of data

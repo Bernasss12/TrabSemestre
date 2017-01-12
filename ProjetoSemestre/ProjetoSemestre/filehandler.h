@@ -17,7 +17,11 @@ inline void filePrintCabecalho()
 
 		setlocale(LC_ALL, "Portuguese_Portugal.860");
 		fprintf(cabecalho, "");
-		fileTop(50, cabecalho);
+		fprintf(cabecalho, "%c", CNT_SE);
+		for (int j = 0; j < 50; j++) {
+			fprintf(cabecalho, "%c", BARRA_HORIZONTAL);
+		}
+		fprintf(cabecalho, "%c\n", CNT_SD);
 		fprintf(cabecalho, "%c        GERA%c%cO ALEAT%cRIA DE UM CALEND%cRIO        %c\n", BARRA_VERTICAL, C_MAI_CED, A_MAI_TIL, O_MAI_ACE, A_MAI_AGU, BARRA_VERTICAL);
 		fprintf(cabecalho, "%c    Calend%crio do tipo %cCalend%crio do ADVENTO%c    %c\n", BARRA_VERTICAL, A_MIN_AGU, C_ASPAS, A_MIN_AGU, O_ASPAS, BARRA_VERTICAL);
 		if (ANO != 0) {
@@ -39,19 +43,27 @@ inline void filePrintCabecalho()
 					ESP_ESQ = (int)floor(ESP);
 				}
 
-				fileIco(BARRA_VERTICAL, cabecalho);
-				fileSpace(ESP_ESQ, cabecalho);
+				fprintf(cabecalho, "%c", BARRA_VERTICAL);
+				for (int j = 0; j < ESP_ESQ; j++) {
+					fprintf(cabecalho, " ");
+				}
 				fprintf(cabecalho, "Aluno N%c %5d - ", 167, alunos[i].num);
 				fprintf(cabecalho, "Nome: ");
 				fprintf(cabecalho, "%s ", alunos[i].nome);
 				fprintf(cabecalho, "%s", alunos[i].apelido);
-				fileSpace(ESP_DIR, cabecalho);
-				fileIco(BARRA_VERTICAL, cabecalho);
+				for (int j = 0; j < ESP_DIR; j++) {
+					fprintf(cabecalho, " ");
+				}
+				fprintf(cabecalho, "%c", BARRA_VERTICAL);
 				//printf("ESP:%d ESPE:%d ESPD:%d NOME:%d APELIDO:%d", ESP, ESP_ESQ, ESP_DIR, strlen(alunos[i].nome), strlen(alunos[i].apelido)); //Debug
 				fprintf(cabecalho, "\n");
 			}
 		}
 
-		fileLinhacon(50, cabecalho);
+		fprintf(cabecalho, "%c", CNT_IE);
+		for (int j = 0; j < 50; j++) {
+			fprintf(cabecalho, "%c", BARRA_HORIZONTAL);
+		}
+		fprintf(cabecalho, "%c\n", CNT_ID);
 }
 
