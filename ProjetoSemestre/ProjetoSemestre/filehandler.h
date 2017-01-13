@@ -5,12 +5,12 @@
 
 FILE* cabecalho;
 
-inline void openFiles()
-{
-}
+void filePrintCabecalho();
 
 inline void filePrintCabecalho()
 {
+	cabecalho = fopen("D://temp//cabecalho.txt", "w+");
+	
 		int ESP;
 		int ESP_ESQ;
 		int ESP_DIR;
@@ -65,5 +65,7 @@ inline void filePrintCabecalho()
 			fprintf(cabecalho, "%c", BARRA_HORIZONTAL);
 		}
 		fprintf(cabecalho, "%c\n", CNT_ID);
+
+		fclose(cabecalho);
 }
 

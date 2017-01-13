@@ -31,15 +31,8 @@ inline void generateCalendar(int ANO)
 
 	if (DIAS_ANO == NULL) {
 			int COUNTDOWN = 3;
-
-			if (alunos != NULL) {
-				free(alunos);
-			}
-
 			freeCal();
-
 			system("cls");
-			init();
 			printf("                                        \033[A\33[2k\r");
 			bot(50);
 			while (COUNTDOWN != 0) {

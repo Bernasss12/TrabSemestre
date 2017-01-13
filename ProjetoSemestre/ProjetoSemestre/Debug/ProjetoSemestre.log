@@ -1,5 +1,5 @@
 ﻿  main.cpp
-e:\trabsem\trabsemestre\projetosemestre\projetosemestre\calendario.h(35): error C2065: 'alunos': undeclared identifier
-e:\trabsem\trabsemestre\projetosemestre\projetosemestre\calendario.h(36): error C2065: 'alunos': undeclared identifier
-e:\trabsem\trabsemestre\projetosemestre\projetosemestre\calendario.h(42): error C3861: 'init': identifier not found
-e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(54): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+d:\trabsemestre\projetosemestre\projetosemestre\menus.h(54): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+d:\trabsemestre\projetosemestre\projetosemestre\filehandler.h(35): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.exe
+  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.pdb (Partial PDB)
