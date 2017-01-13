@@ -2,31 +2,16 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#include <stdbool.h>
-#include <clocale>
 #include "menus.h"
 #include "calendario.h"
+#include "filehandler.h"
 
 void menuPrincipal();
 
 void main()
 {
-	int OPERACAO_INPUT = 0;
-	char TMP = '0';
 
-	//ANO = 2015;
-
-	generateCalendar(2000);
-	printMonth(11);
-	system("pause");
-	system("cls");
-	printf("> ");
-	scanf(" %c", &TMP);
-	findOnCalendar(TMP);
-	system("pause");
-
-	sair();
+	filePrintCabecalho();
 	//Menu 1, decisão
 	menuPrincipal();
 
@@ -67,6 +52,7 @@ int MENU_INPUT = 0;
 		case 'T':
 			//printf("Input Teclado\n"); //Debug
 			inscaluno();
+			filePrintCabecalho();
 			MENU_INPUT = 1;
 			break;
 		case 'F'://TODO
