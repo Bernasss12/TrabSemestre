@@ -1,5 +1,5 @@
 ﻿  main.cpp
-d:\trabsemestre\projetosemestre\projetosemestre\menus.h(54): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-d:\trabsemestre\projetosemestre\projetosemestre\filehandler.h(35): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.exe
-  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.pdb (Partial PDB)
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\filehandler.h(71): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+  ProjetoSemestre.vcxproj -> E:\trabsem\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.exe
+  ProjetoSemestre.vcxproj -> E:\trabsem\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.pdb (Partial PDB)

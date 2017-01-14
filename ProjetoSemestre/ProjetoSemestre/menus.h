@@ -7,6 +7,7 @@
 #include "langhelper.h"
 #include "calendario.h"
 
+
 typedef struct 
 {
 	int num;
@@ -76,7 +77,6 @@ inline void init()
 	
 	linhacon(50);
 }
-
 inline char menu()
 {
 	system("cls");
@@ -131,7 +131,7 @@ inline void inscaluno()
 		printf("                                                                     \033[A\33[2K\033[A\33[2K\033[A\33[2K\033[A\33[2K\r");
 		printf("%c Qual %c o n%cmero do aluno?          [10000-45000] %c\n", BARRA_VERTICAL, E_MIN_ACE, U_MIN_ACE, BARRA_VERTICAL);
 		bot(50);
-		printf("\nAluno %d>", i + 1);
+		printf("\nAluno %d >", i + 1);
 		alunos[i].num = 0;
 		while (!(alunos[i].num >= 10000 && alunos[i].num <= 45000)) {
 			scanf(" %d", &alunos[i].num);
@@ -158,7 +158,6 @@ inline void inscaluno()
 	}
 	callInfo();
 }
-
 inline void callInfo(){
 	system("cls");
 	init();
@@ -166,8 +165,8 @@ inline void callInfo(){
 	bot(50);
 	printf("\n>");
 	scanf("%d", &ANO);
+	fflush(stdin);
 }
-
 inline int numAlunos(){
 	system("cls");
 	init();
@@ -185,7 +184,6 @@ inline int numAlunos(){
 	}
 	return NUM_ALUNOS;
 }
-
 inline void sair(){
 	int COUNTDOWN = 3;
 

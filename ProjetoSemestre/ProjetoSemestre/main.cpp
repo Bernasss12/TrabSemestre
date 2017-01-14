@@ -10,10 +10,12 @@ void menuPrincipal();
 
 void main()
 {
-
-	filePrintCabecalho();
-	//Menu 1, decisão
 	menuPrincipal();
+	
+	//filePrintCabecalho();
+	//Menu 1, decisão
+	
+	
 
 	/*
 	//Menu 2, opções
@@ -50,13 +52,12 @@ int MENU_INPUT = 0;
 	while (MENU_INPUT != 1) {
 		switch (menu()) {
 		case 'T':
-			//printf("Input Teclado\n"); //Debug
+			directory();
 			inscaluno();
-			filePrintCabecalho();
 			MENU_INPUT = 1;
 			break;
 		case 'F'://TODO
-				 //printf("Input Ficheiro\n"); //Debug
+			directory();
 			MENU_INPUT = 1;
 			break;
 		case 'S':

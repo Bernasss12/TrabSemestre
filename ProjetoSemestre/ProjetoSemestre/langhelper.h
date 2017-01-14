@@ -29,6 +29,7 @@ int E_MAI_ACE = 144; //É
 int U_MIN_ACE = 163; //ú
 
 
+
 //Simbolos de tabela
 int BARRA_VERTICAL = 186;
 int BARRA_HORIZONTAL_LD = 185;
@@ -40,8 +41,8 @@ int CNT_SD = 187;
 int CNT_SE = 201;
 int CNT_ID = 188;
 int CNT_IE = 200;
-int O_ASPAS = 34;
-int C_ASPAS = 34;
+int O_ASPAS = 147;
+int C_ASPAS = 148;
 
 //Aparencia
 inline void ico(int i) {
