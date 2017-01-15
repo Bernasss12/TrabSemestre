@@ -112,12 +112,6 @@
   <ItemGroup>
     <ClCompile Include="main.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="calendario.h" />
-    <ClInclude Include="filehandler.h" />
-    <ClInclude Include="langhelper.h" />
-    <ClInclude Include="menus.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

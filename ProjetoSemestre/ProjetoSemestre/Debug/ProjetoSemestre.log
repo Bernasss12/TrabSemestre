@@ -1,5 +1,9 @@
 ﻿  main.cpp
-e:\trabsem\trabsemestre\projetosemestre\projetosemestre\menus.h(55): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-e:\trabsem\trabsemestre\projetosemestre\projetosemestre\filehandler.h(71): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-  ProjetoSemestre.vcxproj -> E:\trabsem\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.exe
-  ProjetoSemestre.vcxproj -> E:\trabsem\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.pdb (Partial PDB)
+d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(184): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(421): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(503): warning C4474: 'fscanf' : too many arguments passed for format string
+  d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(503): note: placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(504): warning C4474: 'fscanf' : too many arguments passed for format string
+  d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(504): note: placeholders and their parameters expect 1 variadic arguments, but 2 were provided
+  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.exe
+  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.pdb (Partial PDB)

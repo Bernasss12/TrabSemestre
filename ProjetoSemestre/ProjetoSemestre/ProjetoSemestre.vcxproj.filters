@@ -19,18 +19,4 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="menus.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="langhelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="calendario.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="filehandler.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
 </Project>
