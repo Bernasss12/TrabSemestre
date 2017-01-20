@@ -1,4 +1,4 @@
-#define _CRT_SECURE_NO_WARNINGS
+Ôªø#define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,26 +21,25 @@ aluno *alunos;
 //Ficheiros
 FILE* cabecalho;
 FILE* input;
-FILE* output;
 FILE* calendario;
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 //Letras
-int A_MIN_TIL = 132; //„
-int A_MAI_TIL = 142; //√
-int O_MIN_ACE = 162; //Û
-int O_MAI_ACE = 159; //”
-int C_MIN_CED = 135; //Á
-int C_MAI_CED = 128; //«
-int A_MIN_AGU = 160; //‡
-int A_MAI_AGU = 134; //¿
-int A_MIN_GRA = 133; //·
-int A_MAI_GRA = 145; //¡
-int O_MIN_TIL = 148; //ı
-int E_MIN_ACE = 130; //È
-int E_MAI_ACE = 144; //…
-int U_MIN_ACE = 163; //˙
+int A_MIN_TIL = 132; //√£
+int A_MAI_TIL = 142; //√É
+int O_MIN_ACE = 162; //√≥
+int O_MAI_ACE = 159; //√ì
+int C_MIN_CED = 135; //√ß
+int C_MAI_CED = 128; //√á
+int A_MIN_AGU = 160; //√†
+int A_MAI_AGU = 134; //√Ä
+int A_MIN_GRA = 133; //√°
+int A_MAI_GRA = 145; //√Å
+int O_MIN_TIL = 148; //√µ
+int E_MIN_ACE = 130; //√©
+int E_MAI_ACE = 144; //√â
+int U_MIN_ACE = 163; //√∫
 
 //Simbolos de tabela
 int BARRA_VERTICAL = 186;
@@ -60,16 +59,20 @@ int C_ASPAS = 34;
 int TEMP1;
 int TEMP2;
 int NUM_ALUNOS = NULL;
-int NUM_ALUNO = 10000;
-int ANO = 0;
-int MENU_INPUT = 1;
+int ANO = NULL;
+int ATUAL = 0;
 
 //Calendario
 int **DIAS_ANO;
 int DIAS_NO_MES[12] = { 31,0,31,30,31,30,31,31,30,31,30,31 };
 int CALENDARIO_GERADO = 0;
 
-int ATUAL = 0;
+
+//Hora
+struct  tm *tm_ptr;
+
+//Pasta
+int PASTA_CRIADA;
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
@@ -83,7 +86,7 @@ char DIRECTORY[7] = "0://tm";
 char DRIVE;
 
 ///////////////////////////////////////////////////////////////////////////////////
-//InicializaÁ„o das funÁıes.///////////////////////////////////////////////////////
+//Inicializa√ß√£o das fun√ß√µes.///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
 void menuPrincipal();
 void callInfo();
@@ -93,7 +96,10 @@ void init();
 char menu();
 void sair();
 int menu2();
+int menu3();
 void menuOpcao1();
+void menuOpcao2();
+void parseTime();
 
 //Calendario
 void generateCalendar(int);
@@ -112,8 +118,6 @@ void fileInput();
 void fileCalendar();
 void filePrintCabecalho();
 void pathGerais();
-
-
 
 void flushstdin();
 
@@ -164,10 +168,13 @@ void menuPrincipal(){
 		pathGerais();
 		directory();
 		inscaluno();
+		filePrintCabecalho();
 		break;
 	case 'F': //Input de ficheiro
 		pathGerais();
 		directory();
+		fileInput();
+		filePrintCabecalho();
 		break;
 	case 'S': //Sair do programa
 		sair();
@@ -213,10 +220,110 @@ void menuOpcao1()
 			bot(50);
 			printMonth(2);
 			break;
-		case 5: //Mais OpÁoes... TODO
-		case 6: //Voltar ao menu de input.
+		case 5: 
+			system("cls");
+			init();
+			menuOpcao2();
+			break;
+		case 6: //Sair do programa
 			ATUAL = 0;
-			main();
+			sair();
+			break;
+		default:
+			menuOpcao1();
+			break;
+		}
+	}
+}
+void menuOpcao2()
+{
+	while (ATUAL == 1)
+	{
+		switch (menu3())
+		{
+		case 1: //Printday
+			int mes;
+			int dia;
+			system("cls");
+			init();
+			printf("                                                           \033[A\33[2k\r");
+			bot(50);
+			printf(" A que m%cs pertence dia que quer? [12]\n>", 136);
+			do {
+				scanf(" %d", &mes);
+				if (mes > 0 && mes <= 12) {
+					break;
+				}
+				printf("\033[A \r>(M%cs inexistnte!)", 136);
+				flushstdin();
+				Sleep(500);
+				printf("\33[2K\r>");
+			} while (!(mes > 0 && mes <= 12));
+			printf("                                                           \033[A\33[2k\033[A\33[2k\r");
+			printf(" Que dia quer? [0-31]                                              \n                       \r>");
+			do {
+				scanf(" %d", &dia);
+				if (dia > 0 && dia <= DIAS_NO_MES[mes]) {
+					break;
+				}
+				printf("\033[A \r>(O m%cs n%co tem este dia!)", 136, A_MIN_TIL);
+				flushstdin();
+				Sleep(500);
+				printf("\33[2K\r>");
+			} while (!(dia > 0 && dia <= DIAS_NO_MES[mes]));
+			printf("                                                           \033[A\33[2k\033[A\33[2k\033[A\33[2k\r");
+			printDay(mes, dia);
+			break;
+		case 2: //Print dias da letra
+			char letra;
+			system("cls");
+			init();
+			printf("                                                           \033[A\33[2k\r");
+			bot(50);
+			printf(" Que letra pretende encontrar?              \n\r>");
+			scanf(" %c", &letra);
+			findOnCalendar(letra);
+			break;
+		case 3: //Para quantos dias foi escolhido a letra 
+			char letra2;
+			system("cls");
+			init();
+			printf("                                                           \033[A\33[2k\r");
+			bot(50);
+			printf(" Que letra pretende contar?              \n\r>");
+			scanf(" %c", &letra2);
+			howManyChar(letra2);
+			break;
+		case 4: //Imprima o calendario referente ao mes fevereiro
+			int mes1;
+			system("cls");
+			init();
+			printf("                                                           \033[A\33[2k\r");
+			bot(50);
+			printf(" A que m%cs pretende ver? [12]\n>", 136);
+			do {
+				scanf(" %d", &mes1);
+				if (mes1 > 0 && mes1 <= 12) {
+					break;
+				}
+				printf("\033[A \r>(M%cs inexistnte!)", 136);
+				flushstdin();
+				Sleep(500);
+				printf("\33[2K\r>");
+			} while (!(mes1 > 0 && mes1 <= 12));
+			printMonth(mes1);
+			break;
+		case 5: //calendario todo
+			system("cls");
+			init();
+			printf("                                                           \033[A\33[2k\r");
+			bot(50);
+			printCalendar();
+			system("pause");
+			break;
+		case 6: //Sair do programa
+			ATUAL = 0;
+			sair();
 			break;
 		default:
 			menuOpcao1();
@@ -230,31 +337,32 @@ void menuOpcao1()
 void init()
 {
 	int ESP;
+	int ESP2;
 	int ESP_ESQ;
 	int ESP_DIR;
 
+	parseTime();
 	setlocale(LC_ALL, "Portuguese_Portugal.860");
-	printf("");
 	top(50);
-	printf("%c      \x1b[36m  GERA%c%cO ALEAT%cRIA DE UM CALEND%cRIO   \x1b[0m     %c\n", BARRA_VERTICAL, C_MAI_CED, A_MAI_TIL, O_MAI_ACE, A_MAI_AGU, BARRA_VERTICAL);
+	printf("%c      \x1b[1m\x1b[36m  GERA%c%cO ALEAT%cRIA DE UM CALEND%cRIO   \x1b[0m     %c\n", BARRA_VERTICAL, C_MAI_CED, A_MAI_TIL, O_MAI_ACE, A_MAI_AGU, BARRA_VERTICAL);
 	printf("%c   \x1b[36m Calend%crio do tipo %cCalend%crio do ADVENTO%c  \x1b[0m  %c\n", BARRA_VERTICAL, A_MIN_AGU, C_ASPAS, A_MIN_AGU, O_ASPAS, BARRA_VERTICAL);
-	if (ANO != 0) {
+	if (ANO != NULL) {
 		printf("%c            \x1b[36m          ANO %4d          \x1b[0m          %c\n", BARRA_VERTICAL, ANO, BARRA_VERTICAL);
 	}
 
 	if (NUM_ALUNOS != NULL) {
 		for (int i = 0; i < NUM_ALUNOS; i++)
 		{
-
-			ESP = floor((26 - strlen(alunos[i].nome) - strlen(alunos[i].apelido)) / 2);
+			ESP = (26 - strlen(alunos[i].nome) - strlen(alunos[i].apelido));
+			ESP2 = floor(ESP / 2);
 			if (ESP % 2 == 0) {
-				ESP_DIR = (int)floor(ESP);
-				ESP_ESQ = (int)floor(ESP);
+				ESP_DIR = (int)floor(ESP2);
+				ESP_ESQ = (int)floor(ESP2);
 			}
 			else
 			{
-				ESP_DIR = (int)floor(ESP) + 1;
-				ESP_ESQ = (int)floor(ESP);
+				ESP_DIR = (int)floor(ESP2) + 1;
+				ESP_ESQ = (int)floor(ESP2);
 			}
 
 			ico(BARRA_VERTICAL);
@@ -269,7 +377,11 @@ void init()
 			printf("\n");
 		}
 	}
-
+	ico(BARRA_VERTICAL);
+	printf(" \x1b[33m\x1b[1m   Data:  %02d/%02d/%4d          ", tm_ptr->tm_mday, tm_ptr->tm_mon + 1, 1900 + (tm_ptr->tm_year));
+	printf("Hora:  %02d:%02d:%02d   \x1b[0m ", tm_ptr->tm_hour, tm_ptr->tm_min, tm_ptr->tm_sec);
+	ico(BARRA_VERTICAL);
+	printf("\n");
 	linhacon(50);
 }
 char menu()
@@ -304,6 +416,10 @@ char menu()
 void sair() {
 	int COUNTDOWN = 3;
 
+	free(alunos);
+	free(DIAS_ANO);
+	_fcloseall();
+
 	system("cls");
 	init();
 	printf("                                        \033[A\33[2k\r");
@@ -314,7 +430,7 @@ void sair() {
 		COUNTDOWN--;
 	}
 	exit(1);
-}//FALTA FECHAR FICHEIROS E DESALOCAR MEMORIA
+}
 int menu2()
 {
 	system("cls");
@@ -325,13 +441,13 @@ int menu2()
 	printf("%c Qual a fun%c%co a ser realizada pelo programa?     %c\n", BARRA_VERTICAL, C_MIN_CED, A_MIN_TIL, BARRA_VERTICAL);
 	printf("%c [1,2,3,4,5,6]                                    %c\n", BARRA_VERTICAL, BARRA_VERTICAL);
 	printf("%c", BARRA_HORIZONTAL_LE);linha(44); printf("%c", 203); linha(5);printf("%c\n", BARRA_HORIZONTAL_LD);
-	printf("%c Qual a letra gerada para 29 FEV?           %c", BARRA_VERTICAL, BARRA_VERTICAL);printf(" [1] %c\n", BARRA_VERTICAL);
+	printf("%c Qual a letra gerada para 29 fevereiro?     %c", BARRA_VERTICAL, BARRA_VERTICAL);printf(" [1] %c\n", BARRA_VERTICAL);
 	printf("%c Para que dias foi gerada a letra A?        %c", BARRA_VERTICAL, BARRA_VERTICAL);printf(" [2] %c\n", BARRA_VERTICAL);
 	printf("%c Para quantos dias foi gerado K?            %c", BARRA_VERTICAL, BARRA_VERTICAL);printf(" [3] %c\n", BARRA_VERTICAL);
 	printf("%c Imprimir Fevereiro.                        %c", BARRA_VERTICAL, BARRA_VERTICAL);printf(" [4] %c\n", BARRA_VERTICAL);
 	printf("%c Mais opcoes...                             %c", BARRA_VERTICAL, BARRA_VERTICAL);printf(" [5] %c\n", BARRA_VERTICAL);
 	printf("%c                                            %c", BARRA_VERTICAL, BARRA_VERTICAL);printf("     %c\n", BARRA_VERTICAL);
-	printf("%c Voltar ao menu anterior.                   %c", BARRA_VERTICAL, BARRA_VERTICAL);printf(" [6] %c\n", BARRA_VERTICAL);
+	printf("%c Sair do programa.                          %c", BARRA_VERTICAL, BARRA_VERTICAL);printf(" [6] %c\n", BARRA_VERTICAL);
 	bot_U(50, 44);
 	printf("\n>");
 
@@ -339,7 +455,38 @@ int menu2()
 		scanf(" %1d", &RESPOSTA2);
 		RESPOSTA2 = toupper(RESPOSTA2);
 		if (RESPOSTA2 == 1 || RESPOSTA2 == 2 || RESPOSTA2 == 3 || RESPOSTA2 == 4 || RESPOSTA2 == 5 || RESPOSTA2 == 6) {
-			MENU_INPUT = 2;
+			return RESPOSTA2;
+		}
+		printf("\033[A \r>(Resposta inv%clida!)", A_MIN_AGU);
+		flushstdin();
+		Sleep(500);
+		printf("\33[2K\r> ");
+	} while (!(RESPOSTA2 == 1 || RESPOSTA2 == 2 || RESPOSTA2 == 3 || RESPOSTA2 == 4 || RESPOSTA2 == 5 || RESPOSTA2 == 6));
+}
+int menu3()
+{
+	system("cls");
+	init();
+	int RESPOSTA2;
+	printf("%c                 Menu de Controlo                 %c\n", BARRA_VERTICAL, BARRA_VERTICAL);
+	linhacon(50);
+	printf("%c Qual a fun%c%co a ser realizada pelo programa?     %c\n", BARRA_VERTICAL, C_MIN_CED, A_MIN_TIL, BARRA_VERTICAL);
+	printf("%c [1,2,3,4,5,6]                                    %c\n", BARRA_VERTICAL, BARRA_VERTICAL);
+	printf("%c", BARRA_HORIZONTAL_LE);linha(44); printf("%c", 203); linha(5);printf("%c\n", BARRA_HORIZONTAL_LD);
+	printf("%c Qual a letra gerada para ''?               %c", BARRA_VERTICAL, BARRA_VERTICAL);printf(" [1] %c\n", BARRA_VERTICAL);
+	printf("%c Para que dias foi gerada a letra ''?       %c", BARRA_VERTICAL, BARRA_VERTICAL);printf(" [2] %c\n", BARRA_VERTICAL);
+	printf("%c Para quantos dias foi gerada a letra ''?   %c", BARRA_VERTICAL, BARRA_VERTICAL);printf(" [3] %c\n", BARRA_VERTICAL);
+	printf("%c Imprimir o m%cs ''?                         %c", BARRA_VERTICAL, 136, BARRA_VERTICAL);printf(" [4] %c\n", BARRA_VERTICAL);
+	printf("%c Imprimir calend%crio completo.              %c", BARRA_VERTICAL, A_MIN_AGU, BARRA_VERTICAL);printf(" [5] %c\n", BARRA_VERTICAL);
+	printf("%c                                            %c", BARRA_VERTICAL, BARRA_VERTICAL);printf("     %c\n", BARRA_VERTICAL);
+	printf("%c Sair do programa.                          %c", BARRA_VERTICAL, BARRA_VERTICAL);printf(" [6] %c\n", BARRA_VERTICAL);
+	bot_U(50, 44);
+	printf("\n>");
+
+	do {
+		scanf(" %1d", &RESPOSTA2);
+		RESPOSTA2 = toupper(RESPOSTA2);
+		if (RESPOSTA2 == 1 || RESPOSTA2 == 2 || RESPOSTA2 == 3 || RESPOSTA2 == 4 || RESPOSTA2 == 5 || RESPOSTA2 == 6) {
 			return RESPOSTA2;
 		}
 		printf("\033[A \r>(Resposta inv%clida!)", A_MIN_AGU);
@@ -361,8 +508,14 @@ void inscaluno()
 		numAlunos();
 	}
 
-	if (alunos == NULL) {//AlocaÁ„o din‚mica da memoria para os alunos.
+	if (alunos == NULL) {//Aloca√ß√£o din√¢mica da memoria para os alunos.
 		alunos = (aluno*)malloc(NUM_ALUNOS * sizeof(aluno));
+		if (alunos == NULL) {
+			printf("                                                  \33[2K \33[A \33[2K \33[A \r");
+			printf("\x1b[31m\x1b[1mErro ao alocar mem%cria para os alunos!\x1b[0m\n", O_MIN_ACE);
+			Sleep(1000);
+			sair();
+		}
 	}
 
 	for (int i = 0; i < NUM_ALUNOS; i++)
@@ -391,15 +544,16 @@ void inscaluno()
 		bot(50);
 		printf("\nAluno %d>", i + 1);
 		scanf("%s", &alunos[i].nome);
+		flushstdin();
 
 		printf("                                                                     \033[A\33[2K\033[A\33[2K\033[A\33[2K\033[A\33[2K\r");
 		printf("%c Qual %c o apelido do aluno?                       %c\n", BARRA_VERTICAL, E_MIN_ACE, BARRA_VERTICAL);
 		bot(50);
 		printf("\nAluno %d>", i + 1);
 		scanf("%s", &alunos[i].apelido);
+		flushstdin();
 	}
 	callInfo();
-	MENU_INPUT = 1;
 	main();
 }
 void callInfo() {
@@ -434,92 +588,187 @@ int numAlunos() {
 void directory() {
 	DIRECTORY[6] = 'p';
 
-	if (_mkdir(DIRECTORY) != 0)
+	PASTA_CRIADA = _mkdir(DIRECTORY);
+
+	if (PASTA_CRIADA == -1)
 	{
-		printf("Erro ao criar a pasta!\n");
+		if (errno == EEXIST)
+		{
+			printf("                                                  \33[2K \33[A \33[2K \33[A \r");
+			printf("\x1b[32mPasta n%co foi criada porque j%c existia!\x1b[0m\n", A_MIN_TIL, A_MIN_AGU);
+			Sleep(1000);
+		}
+		else {
+			printf("                                                  \33[2K \33[A \33[2K \33[A \r");
+			printf("\x1b[31m\x1b[1mErro ao criar a pasta!\x1b[0m\n");
+			Sleep(1000);
+			sair();
+		}
 	}
-	else
+	else if (PASTA_CRIADA == 0)
 	{
-		printf("Pasta criada com sucesso!\n");
+		printf("                                                  \33[2K \33[A \33[2K \33[A \r");
+		printf("\x1b[32m\x1b[1mPasta criada com sucesso!\x1b[0m\n");
+		Sleep(1000);
 	}
 }
 void fileInput()
 {
+	char linha[100];
 	PATHINPUT[17] = 't';
 	PATHOUTPUT[18] = 't';
-
-
-
 	input = fopen(PATHINPUT, "w+");
-
-	fprintf(input, "N%c    Nome      Apelido\n", 163);
-	fprintf(input, "XXXXX XXXXXXXXXX XXXXXXX\n");
-
+	if (input == NULL)
+	{
+		init();
+		printf("                                                       \033[A\33[2k\033[A\33[2k\r");
+		printf("\x1b[31m Erro ao abrir o ficheiro \x1b[1minput \x1b[22mpara escrita. \x1b[0m");
+		Sleep(1000);
+		sair();
+	}
+	fprintf(input, "Quantos alunos pretende inscrever?\n>\nQual o n√∫mero do primeiro elemento?\n>\nQual o nome do primeiro elemento?\n>\nQual o apelido do primeiro elemento?\n>\nQual o n√∫mero do primeiro elemento?\n>\nQual o nome do primeiro elemento?\n>\nQual o apelido do primeiro elemento?\n>\nQual o ano do calend√°rio a gerar?\n>");
 	fclose(input);
+	system("cls");
+	init();
+	printf("                                                           \033[A\33[2k\r");
+	bot(50);
+	printf(" O ficheiro \"input.txt\" foi criado na pasta \"%c://tmp//\".\n Escreva as informa%c%ces pedidas sem deixar o \">\" para tr%cs.\n Quando estiver pronto continue o programa.\n", DRIVE, C_MIN_CED, A_MIN_TIL, A_MIN_AGU);
+	system("pause");
+	if (alunos == NULL) {//Aloca√ß√£o din√¢mica da memoria para os alunos.
+		alunos = (aluno*)malloc(NUM_ALUNOS * sizeof(aluno));
+		if (alunos == NULL)
+		{
+			init();
+			printf("                                                       \033[A\33[2k\033[A\33[2k\r");
+			printf("\x1b[31m Erro ao alocar a mem%cria para os \x1b[1malunos. \x1b[0m", O_MIN_ACE);
+			sair();
+		}
+	}
+	input = fopen(PATHINPUT, "r");
+	if (input == NULL)
+	{
+		init();
+		printf("                                                       \033[A\33[2k\033[A\33[2k\r");
+		printf("\x1b[31m Erro ao abrir o ficheiro \x1b[1minput \x1b[22mpara leitura. \x1b[0m", O_MIN_ACE);
+		sair();
+	}
+	for (int i = 0; i <= 18; i++){
+		fgets(linha, 100, input);
+		if (i == 1)
+		{
+			sscanf(linha, "%d", &NUM_ALUNOS);
+		}
+		if (i == 3)
+		{
+			sscanf(linha, "%d", &alunos[0].num);
+		}
+		if (i == 5)
+		{
+			sscanf(linha, "%s", alunos[0].nome);
+		}
+		if (i == 7)
+		{
+			sscanf(linha, "%s", alunos[0].apelido);
+		}
+		if (NUM_ALUNOS == 2)
+		{
+			if (i == 9)
+			{
+				sscanf(linha, "%d", &alunos[1].num);
+			}
+			if (i == 11)
+			{
+				sscanf(linha, "%s", alunos[1].nome);
+			}
+			if (i == 13)
+			{
+				sscanf(linha, "%s", alunos[1].apelido);
+			}
+		}
+		if (i == 15)
+		{
+			sscanf(linha, "d", &ANO);
+		}
+	}
+	fclose(input);
+	Sleep(150);
+	printf("                                                                            \033[A\33[2K\r");
+	printf(" Leitura completa!\n");
+	//system("cls");
+	//init();
 }
 void fileCalendar()
 {
+	//N√£o est√° a funcionar
+	if (CALENDARIO_GERADO == 1) {
+		PATHCALENDARIO[22] = 't';
 
-	PATHCALENDARIO[22] = 't';
+		calendario = fopen(PATHCALENDARIO, "r");
+		input = fopen(PATHINPUT, "w+");
+		if (calendario == NULL)
+		{
+			init();
+			printf("                                                       \033[A\33[2K\033[A\33[2K\r");
+			printf("\x1b[31m Erro ao abrir o ficheiro \x1b[1mcalendario \x1b[22mpara escrita. \x1b[0m");
+			Sleep(1000);
+			sair();
+		}
+
+		int LINE = 7;
+		for (int i = 0; i < 12; i++) {
+			meS(i);
+			fprintf(calendario, "\n");
+			for (int j = 0; j < DIAS_NO_MES[i]; j++) {
+				if (LINE == 0) {
+					fprintf(calendario, "\n");
+					LINE = 7;
+				}
+				fprintf(calendario, "%2c", DIAS_ANO[i][j]);
+				LINE--;
+			}
+			fprintf(calendario, "\n");
+			LINE = 7;
+		}
+		fclose(calendario);
+	}
 }
 void filePrintCabecalho()
 {
+	parseTime();
 	PATHCABECALHO[21] = 't';
 
-	cabecalho = fopen(PATHCABECALHO, "w+");
-	int ESP;
-	int ESP_ESQ;
-	int ESP_DIR;
+	cabecalho = fopen(PATHCABECALHO, "w");
+	if (cabecalho == NULL)
+	{
+		init();
+		printf("                                                       \033[A\33[2k\033[A\33[2k\r");
+		printf("\x1b[31m Erro ao abrir o ficheiro \x1b[1mcabecalho \x1b[22mpara escrita. \x1b[0m");
+		Sleep(1000);
+		sair();
+	}
 
-	setlocale(LC_ALL, "Portuguese_Portugal.860");
-	fprintf(cabecalho, "%c", CNT_SE);
+	if (cabecalho == NULL)sair();
+
 	for (int j = 0; j < 50; j++) {
-		fprintf(cabecalho, "%c", BARRA_HORIZONTAL);
+		fprintf(cabecalho, "=");
 	}
-	fprintf(cabecalho, "%c\n", CNT_SD);
-	fprintf(cabecalho, "%c        GERA%c%cO ALEAT%cRIA DE UM CALEND%cRIO        %c\n", BARRA_VERTICAL, C_MAI_CED, A_MAI_TIL, O_MAI_ACE, A_MAI_AGU, BARRA_VERTICAL);
-	fprintf(cabecalho, "%c    Calend%crio do tipo %cCalend%crio do ADVENTO%c    %c\n", BARRA_VERTICAL, A_MIN_AGU, C_ASPAS, A_MIN_AGU, O_ASPAS, BARRA_VERTICAL);
-	if (ANO != 0) {
-		fprintf(cabecalho, "%c                      ANO %4d                    %c\n", BARRA_VERTICAL, ANO, BARRA_VERTICAL);
+	fprintf(cabecalho, "\n        GERA√á√ÉO ALEAT√ìRIA DE UM CALEND√ÅRIO        \n");
+	fprintf(cabecalho, "    Calend√°rio do tipo \"Calend√°rio do ADVENTO\"    \n");
+	fprintf(cabecalho, "                     ANO %4d                    \n");
+	fprintf(cabecalho, "Aluno N¬∫ %5d - ", alunos[0].num);
+	fprintf(cabecalho, "Nome: %s %s\n", alunos[0].nome, alunos[0].apelido);
+	if (NUM_ALUNOS == 2) {
+		fprintf(cabecalho, "Aluno N¬∫ %5d - ", alunos[1].num);
+		fprintf(cabecalho, "Nome: %s %s\n", alunos[1].nome, alunos[1].apelido);
 	}
+	fprintf(cabecalho, "Data:  %02d/%02d/%4d        ", tm_ptr->tm_mday, tm_ptr->tm_mon + 1, 1900 + (tm_ptr->tm_year));
+	fprintf(cabecalho, "Hora:  %02d:%02d:%02d    \n", tm_ptr->tm_hour, tm_ptr->tm_min, tm_ptr->tm_sec);
 
-	if (NUM_ALUNOS != NULL) {
-		for (int i = 0; i < NUM_ALUNOS; i++)
-		{
-
-			ESP = floor(((26 - strlen(alunos[i].nome)) - strlen(alunos[i].apelido)) / 2);
-			if (ESP % 2 == 0) {
-				ESP_DIR = (int)floor(ESP) + 1;
-				ESP_ESQ = (int)floor(ESP);
-			}
-			else
-			{
-				ESP_DIR = (int)floor(ESP);
-				ESP_ESQ = (int)floor(ESP);
-			}
-
-			fprintf(cabecalho, "%c", BARRA_VERTICAL);
-			for (int j = 0; j < ESP_ESQ; j++) {
-				fprintf(cabecalho, " ");
-			}
-			fprintf(cabecalho, "Aluno N%c %5d - ", 167, alunos[i].num);
-			fprintf(cabecalho, "Nome: ");
-			fprintf(cabecalho, "%s ", alunos[i].nome);
-			fprintf(cabecalho, "%s", alunos[i].apelido);
-			for (int j = 0; j < ESP_DIR; j++) {
-				fprintf(cabecalho, " ");
-			}
-			fprintf(cabecalho, "%c", BARRA_VERTICAL);
-			//printf("ESP:%d ESPE:%d ESPD:%d NOME:%d APELIDO:%d", ESP, ESP_ESQ, ESP_DIR, strlen(alunos[i].nome), strlen(alunos[i].apelido)); //Debug
-			fprintf(cabecalho, "\n");
-		}
-	}
-
-	fprintf(cabecalho, "%c", CNT_IE);
 	for (int j = 0; j < 50; j++) {
-		fprintf(cabecalho, "%c", BARRA_HORIZONTAL);
+		fprintf(cabecalho, "=");
 	}
-	fprintf(cabecalho, "%c\n", CNT_ID);
+
+	fprintf(cabecalho, "\n");
 
 	fclose(cabecalho);
 }
@@ -530,7 +779,7 @@ void pathGerais() {
 	printf("                                                                     \033[A\33[2K\033[A\33[2K\033[A\33[2K\033[A\33[2K\033[A\33[2K\033[A\33[2K\033[A\33[2K\033[A\33[2K\033[A\33[2K\r");
 	linhacon(50);
 	printf("%c Qual a drive em que pretende criar o ficheiro?   %c\n", BARRA_VERTICAL, BARRA_VERTICAL);
-	printf("%c [C,D,E]                                          %c\n", BARRA_VERTICAL, BARRA_VERTICAL);
+	printf("%c \x1b[1m[C,D,E]      \x1b[0m                                    %c\n", BARRA_VERTICAL, BARRA_VERTICAL);
 	bot(50);
 	printf("\n> ");
 	do {
@@ -551,31 +800,6 @@ void pathGerais() {
 	DIRECTORY[0] = DRIVE;
 
 }
-void inscalunoFile()
-{
-	input = fopen(PATHINPUT, "r+");
-	printf("%c             Informa%c%ces de Cabe%calho             %c\n", BARRA_VERTICAL, C_MIN_CED, O_MIN_TIL, C_MIN_CED, BARRA_VERTICAL);
-	linhacon(50);
-	if (NUM_ALUNOS == NULL) {
-		//		numAlunos();
-	}
-	if (alunos == NULL) {//AlocaÁ„o din‚mica da memoria para os alunos.
-		alunos = (aluno*)malloc(NUM_ALUNOS * sizeof(aluno));
-	}
-
-	for (int i = 0; i < NUM_ALUNOS; i++)
-	{
-		alunos[i].nome[i] = '\0';
-		alunos[i].apelido[i] = '\0';
-
-		alunos[i].num = 0;
-		fscanf(input, " %5d", &alunos[1].num);
-		fscanf(input, "%9s", &alunos[1].nome, 10);
-		fscanf(input, "%9s", &alunos[1].apelido, 10);
-
-	}
-	//callInfo();
-}
 ///////////////////////////////////////////////////////////////////////////////////
 
 //Calendario///////////////////////////////////////////////////////////////////////
@@ -594,17 +818,10 @@ void generateCalendar(int ANO)
 	}
 
 	if (DIAS_ANO == NULL) {
-		int COUNTDOWN = 3;
-		freeCal();
-		system("cls");
-		printf("                                        \033[A\33[2k\r");
-		bot(50);
-		while (COUNTDOWN != 0) {
-			printf("\33[k\rA sair do programa em %d segundos...", COUNTDOWN);
-			Sleep(1000);
-			COUNTDOWN--;
-		}
-		exit(1);
+		printf("                                                  \33[2K \33[A \33[2K \33[A \r");
+		printf("\x1b[31m\x1b[1mErro ao alocar mem%cria para o calend%crio!\x1b[0m\n", O_MIN_ACE, A_MIN_AGU);
+		Sleep(1000);
+		sair();
 	}
 
 	srand((unsigned)time(NULL));
@@ -643,34 +860,48 @@ void printMonth(int mes) {
 	}else
 	{
 		ESPME = ESPM - 2;
-		ESPMD = ESPM - 2 + 1;
+		ESPMD = ESPM - 1;
 	}
+	space(16);
+	ico(CNT_SE);
 	linha(ESPME);
 	printf("%c ", BARRA_HORIZONTAL_LD);
 	meS(mes-1);
 	printf(" %c", BARRA_HORIZONTAL_LE);
 	linha(ESPMD);
+	ico(CNT_SD);
 	printf("\n");
+	space(16);
+	ico(BARRA_VERTICAL);
 	int LINE = 7;
 	for (int j = 0; j < DIAS_NO_MES[mes-1]; j++) {
 		if (LINE == 0) {
+			space(1);
+			ico(BARRA_VERTICAL);
 			printf("\n");
+			space(16);
+			ico(BARRA_VERTICAL);
 			LINE = 7;
 		}
 		printf("%2c", DIAS_ANO[mes-1][j]);
 		LINE--;
 	}
+	space(LINE * 2 + 1);
+	ico(BARRA_VERTICAL);
 	printf("\n");
+	space(16);
+	ico(CNT_IE);
 	linha(15);
+	ico(CNT_ID);
 	printf("\n\n");
 	system("pause");
 }
 void printDay(int mes, int dia) {
 	if (DIAS_NO_MES[1] == 28 && mes-1 == 1 && dia == 29)
 	{
-		printf("\nO dia %d de ", dia);
+		printf("\n O dia %d de ", dia);
 		meS(mes-1);
-		printf(" n%co exite pois o ano n%co %c bissexto.\n\n", A_MIN_TIL, A_MIN_TIL, E_MIN_ACE);
+		printf(" n%co exite, pois o ano n%co %c\n bissexto.\n\n", A_MIN_TIL, A_MIN_TIL, E_MIN_ACE);
 		system("pause");
 		main();
 	}
@@ -787,6 +1018,13 @@ void freeCal() {
 }
 ///////////////////////////////////////////////////////////////////////////////////
 
+//Ver horas////////////////////////////////////////////////////////////////////////
+void parseTime() {
+	const  time_t  timer = time(NULL);
+	tm_ptr = gmtime(&timer);
+}
+///////////////////////////////////////////////////////////////////////////////////
+
 //Aparencia////////////////////////////////////////////////////////////////////////
 void ico(int i) {
 	printf("%c", i);
@@ -856,7 +1094,9 @@ void space(int i) {
 }
 ///////////////////////////////////////////////////////////////////////////////////
 
-//Quando scanf retira a informacao que estava ‡ espera, apaga o resto do chamado 'buffer'. Quando lhe È dado informacao a mais ou diferente do suposto este nunca vai limpar o resto do buffer, criando um loop infinito. Esta funÁ„o quando corrida depois do scanf apaga forÁosamente toda a informaÁ„o que este n„o utilizou para evitar o bloqueio do programa.
+//Quando scanf retira a informacao que estava √† espera, apaga o resto do chamado 'buffer'. Quando lhe √© dado informacao a mais ou diferente do suposto este nunca vai limpar o resto do buffer, criando um loop infinito. Esta fun√ß√£o quando corrida depois do scanf apaga for√ßosamente toda a informa√ß√£o que este n√£o utilizou para evitar o bloqueio do programa.
 void flushstdin() {
-	int c; while ((c = getchar()) != '\n' && c != EOF);
+	int c; 
+	while ((c = getchar()) != '\n' && c != EOF);
 }
+
