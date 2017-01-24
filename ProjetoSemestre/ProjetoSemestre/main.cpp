@@ -88,50 +88,50 @@ char DRIVE;
 ///////////////////////////////////////////////////////////////////////////////////
 //Inicialização das funções.///////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
-void menuPrincipal();
-void callInfo();
-int numAlunos();
-void inscaluno();
-void init();
-char menu();
-void sair();
-int menu2();
-int menu3();
-void menuOpcao1();
-void menuOpcao2();
-void parseTime();
+void menuPrincipal(); //Menu de switches: inputs
+void callInfo(); //Perguntar o ano desejado
+int numAlunos(); //Perguntar o numero de alunos
+void inscaluno(); //Perguntar a informacao dos alunos, Nome, Apelido e Numero
+void init(); //Cabeçalho
+char menu(); //Menu de de inputs
+void sair(); //Funçao de sair. Fecha todos os ficheiros e desaloca memoria.
+int menu2(); //Menu Operativo
+int menu3(); //Menu Operativo Extra
+void menuOpcao1(); //Menu de switches: fixo
+void menuOpcao2(); //Menu de switches: variavel
+void parseTime(); //Buscar tempo do sistema
 
 //Calendario
-void generateCalendar(int);
-void printCalendar();
-void printMonth(int);
-void printDay(int, int);
-void findOnCalendar(char);
-void meS(int);
-int mesSize(int);
-void freeCal();
-void howManyChar(char);
+void generateCalendar(int); //Gera o calendario dado um ano
+void printCalendar(); //Imprime o calendario, no ecrã
+void printMonth(int); //Imprime o mês pedido, no ecrã
+void printDay(int, int); //Imprime o dia do mes pedidos, no ecrã
+void findOnCalendar(char); //Procura o character fornecido no calendario completo
+void meS(int); //Imprime o nome do mês pedido no ecrã
+void fMeS(int); //Imprime o nome do mês pedido num ficheiro
+int mesSize(int); //Devolve o tamanho do nome do mês
+void howManyChar(char); //Conta quantas vezes dado caractere foi gerado no calendario
 
 //Ficheiros
-void directory();
-void fileInput();
-void fileCalendar();
-void filePrintCabecalho();
-void pathGerais();
+void directory(); //Cria a pasta para os ficheiros
+void fileInput(); //Pede informacao de alunos ao utilizador por ficheiro
+void fileCalendar(); //Imprime o calendario num ficheiro
+void filePrintCabecalho(); //Imprime o cabeçalho num ficheiro
+void pathGerais(); //Pergunta qual drive usar
 
-void flushstdin();
+void flushstdin(); //Limpa o buffer de memória stdin
 
 //Aparencia
-void ico(int);
-void linha(int);
-void linhacon(int);
-void linhacon_ID(int, int);
-void linhacon_IU(int, int);
-void top_D(int, int);
-void bot_U(int, int);
-void top(int);
-void bot(int);
-void space(int);
+void ico(int); 
+void linha(int); 
+void linhacon(int); 
+void linhacon_ID(int, int); 
+void linhacon_IU(int, int); 
+void top_D(int, int); 
+void bot_U(int, int); 
+void top(int); 
+void bot(int); 
+void space(int); 
 
 ///////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////
@@ -433,7 +433,7 @@ void sair() {
 }
 int menu2()
 {
-	system("cls");
+	//system("cls");
 	init();
 	int RESPOSTA2;
 	printf("%c                 Menu de Controlo                 %c\n", BARRA_VERTICAL, BARRA_VERTICAL);
@@ -635,7 +635,7 @@ void fileInput()
 	printf(" O ficheiro \"input.txt\" foi criado na pasta \"%c://tmp//\".\n Escreva as informa%c%ces pedidas sem deixar o \">\" para tr%cs.\n Quando estiver pronto continue o programa.\n", DRIVE, C_MIN_CED, A_MIN_TIL, A_MIN_AGU);
 	system("pause");
 	if (alunos == NULL) {//Alocação dinâmica da memoria para os alunos.
-		alunos = (aluno*)malloc(NUM_ALUNOS * sizeof(aluno));
+		alunos = (aluno*)malloc(2 * sizeof(aluno));
 		if (alunos == NULL)
 		{
 			init();
@@ -703,8 +703,7 @@ void fileCalendar()
 	if (CALENDARIO_GERADO == 1) {
 		PATHCALENDARIO[22] = 't';
 
-		calendario = fopen(PATHCALENDARIO, "r");
-		input = fopen(PATHINPUT, "w+");
+		calendario = fopen(PATHCALENDARIO, "w");
 		if (calendario == NULL)
 		{
 			init();
@@ -716,7 +715,7 @@ void fileCalendar()
 
 		int LINE = 7;
 		for (int i = 0; i < 12; i++) {
-			meS(i);
+			fMeS(i);
 			fprintf(calendario, "\n");
 			for (int j = 0; j < DIAS_NO_MES[i]; j++) {
 				if (LINE == 0) {
@@ -805,7 +804,7 @@ void pathGerais() {
 //Calendario///////////////////////////////////////////////////////////////////////
 void generateCalendar(int ANO)
 {
-	if ((ANO % 4 == 0 && ANO % 100 != 0) || ANO % 400 == 0) {
+	if (((ANO % 4 == 0) && (ANO % 100 != 0)) || (ANO % 400 == 0)) {
 		DIAS_NO_MES[1] = { 29 };
 	}
 	else {
@@ -831,7 +830,10 @@ void generateCalendar(int ANO)
 			DIAS_ANO[i][j] = ((rand() % ('Z' - 'A' + 1)) + 'A');
 		}
 	}
+
 	CALENDARIO_GERADO = 1;
+	fileCalendar();
+	
 } //gera o calendario
 void printCalendar() {
 	int LINE = 7;
@@ -982,6 +984,46 @@ void meS(int mes) {
 		break;
 	}
 }
+void fMeS(int mes) {
+	switch (mes + 1) {
+	case 1:
+		fprintf(calendario, "Janeiro");
+		break;
+	case 2:
+		fprintf(calendario, "Fevereiro");
+		break;
+	case 3:
+		fprintf(calendario, "Março");
+		break;
+	case 4:
+		fprintf(calendario, "Abril");
+		break;
+	case 5:
+		fprintf(calendario, "Maio");
+		break;
+	case 6:
+		fprintf(calendario, "Junho");
+		break;
+	case 7:
+		fprintf(calendario, "Julho");
+		break;
+	case 8:
+		fprintf(calendario, "Agosto");
+		break;
+	case 9:
+		fprintf(calendario, "Setembro");
+		break;
+	case 10:
+		fprintf(calendario, "Outubro");
+		break;
+	case 11:
+		fprintf(calendario, "Novembro");
+		break;
+	case 12:
+		fprintf(calendario, "Dezembro");
+		break;
+	}
+}
 int mesSize(int mes) {
 switch (mes + 1) {
 	case 1:
@@ -1010,11 +1052,6 @@ switch (mes + 1) {
 		return 8;
 	}
 	return 0;
-}
-void freeCal() {
-	if (DIAS_ANO != NULL) {
-		free(DIAS_ANO);
-	}
 }
 ///////////////////////////////////////////////////////////////////////////////////
 
