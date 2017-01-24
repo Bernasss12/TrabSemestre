@@ -1,13 +1,9 @@
 ﻿  main.cpp
-d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(357): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
-d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(652): warning C4474: 'printf' : too many arguments passed for format string
-  d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(652): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
-d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(690): warning C4474: 'sscanf' : too many arguments passed for format string
-  d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(690): note: placeholders and their parameters expect 0 variadic arguments, but 1 were provided
-d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(756): warning C4473: 'fprintf' : not enough arguments passed for format string
-  d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(756): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
-  d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(756): note: the missing variadic argument 1 is required by format string '%4d'
-d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(465): warning C4715: 'menu2': not all control paths return a value
-d:\trabsemestre\projetosemestre\projetosemestre\main.cpp(497): warning C4715: 'menu3': not all control paths return a value
-  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.exe
-  ProjetoSemestre.vcxproj -> D:\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.pdb (Partial PDB)
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\main.cpp(358): warning C4244: '=': conversion from 'double' to 'int', possible loss of data
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\main.cpp(792): warning C4473: 'fprintf' : not enough arguments passed for format string
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\main.cpp(792): note: placeholders and their parameters expect 1 variadic arguments, but 0 were provided
+  e:\trabsem\trabsemestre\projetosemestre\projetosemestre\main.cpp(792): note: the missing variadic argument 1 is required by format string '%4d'
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\main.cpp(468): warning C4715: 'menu2': not all control paths return a value
+e:\trabsem\trabsemestre\projetosemestre\projetosemestre\main.cpp(500): warning C4715: 'menu3': not all control paths return a value
+  ProjetoSemestre.vcxproj -> E:\trabsem\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.exe
+  ProjetoSemestre.vcxproj -> E:\trabsem\TrabSemestre\ProjetoSemestre\Debug\ProjetoSemestre.pdb (Partial PDB)

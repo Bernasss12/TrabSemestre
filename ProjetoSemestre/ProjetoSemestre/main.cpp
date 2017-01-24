@@ -61,6 +61,7 @@ int TEMP2;
 int NUM_ALUNOS = NULL;
 int ANO = NULL;
 int ATUAL = 0;
+int FICHEIRO_PREENCHIDO;
 
 //Calendario
 int **DIAS_ANO;
@@ -115,6 +116,7 @@ void howManyChar(char); //Conta quantas vezes dado caractere foi gerado no calen
 //Ficheiros
 void directory(); //Cria a pasta para os ficheiros
 void fileInput(); //Pede informacao de alunos ao utilizador por ficheiro
+void fileCheck(); //Verifica se o ficheiro foi preenchido
 void fileCalendar(); //Imprime o calendario num ficheiro
 void filePrintCabecalho(); //Imprime o cabeçalho num ficheiro
 void pathGerais(); //Pergunta qual drive usar
@@ -154,7 +156,6 @@ void main()
 			menuOpcao1();
 			break;
 		}
-		system("pause");
 	}	
 }
 ///////////////////////////////////////////////////////////////////////////////////
@@ -415,13 +416,15 @@ char menu()
 }
 void sair() {
 	int COUNTDOWN = 3;
+	
+	system("cls");
+	init();
 
 	free(alunos);
 	free(DIAS_ANO);
 	_fcloseall();
 
-	system("cls");
-	init();
+	
 	printf("                                        \033[A\33[2k\r");
 	bot(50);
 	while (COUNTDOWN != 0) {
@@ -433,7 +436,7 @@ void sair() {
 }
 int menu2()
 {
-	//system("cls");
+	system("cls");
 	init();
 	int RESPOSTA2;
 	printf("%c                 Menu de Controlo                 %c\n", BARRA_VERTICAL, BARRA_VERTICAL);
@@ -559,10 +562,18 @@ void inscaluno()
 void callInfo() {
 	printf("                                                                     \033[A\33[2K\033[A\33[2K\033[A\33[2K\033[A\33[2K\r");
 	printf("%c Qual o ano do calend%crio que pretende gerar?     %c\n", BARRA_VERTICAL, A_MIN_AGU, BARRA_VERTICAL);
+	printf("%c [1582-9999]                                      %c\n", BARRA_VERTICAL, BARRA_VERTICAL);
 	bot(50);
-	printf("\n>");
-	scanf("%d", &ANO);
-	flushstdin();
+	printf("\n");
+	do {
+		printf("\33[2K\r>");
+		scanf(" %d", &ANO);
+		flushstdin();
+		if ((ANO < 1582) || (ANO > 9999)){
+			printf("\033[A\r> (Ano inv%clido!)", A_MIN_AGU);
+			Sleep(500);
+		}
+	} while (!((ANO >= 1582) && (ANO <= 9999)));
 }
 int numAlunos() {
 	system("cls");
@@ -612,29 +623,45 @@ void directory() {
 		Sleep(1000);
 	}
 }
-void fileInput()
-{
+void fileCheck() {
 	char linha[100];
 	PATHINPUT[17] = 't';
 	PATHOUTPUT[18] = 't';
-	input = fopen(PATHINPUT, "w+");
-	if (input == NULL)
+	input = fopen(PATHINPUT, "r");
+	if (input != NULL)
 	{
-		init();
-		printf("                                                       \033[A\33[2k\033[A\33[2k\r");
-		printf("\x1b[31m Erro ao abrir o ficheiro \x1b[1minput \x1b[22mpara escrita. \x1b[0m");
-		Sleep(1000);
-		sair();
+		fseek(input, -1, SEEK_END);
+		fgets(linha, 1, input);
+		printf("%s", linha);
+		fclose(input);
 	}
-	fprintf(input, "Quantos alunos pretende inscrever?\n>\nQual o número do primeiro elemento?\n>\nQual o nome do primeiro elemento?\n>\nQual o apelido do primeiro elemento?\n>\nQual o número do primeiro elemento?\n>\nQual o nome do primeiro elemento?\n>\nQual o apelido do primeiro elemento?\n>\nQual o ano do calendário a gerar?\n>");
-	fclose(input);
-	system("cls");
-	init();
-	printf("                                                           \033[A\33[2k\r");
-	bot(50);
-	printf(" O ficheiro \"input.txt\" foi criado na pasta \"%c://tmp//\".\n Escreva as informa%c%ces pedidas sem deixar o \">\" para tr%cs.\n Quando estiver pronto continue o programa.\n", DRIVE, C_MIN_CED, A_MIN_TIL, A_MIN_AGU);
-	system("pause");
-	if (alunos == NULL) {//Alocação dinâmica da memoria para os alunos.
+	else
+	{
+		input = fopen(PATHINPUT, "w+");
+		if (input == NULL)
+		{
+			init();
+			printf("                                                       \033[A\33[2k\033[A\33[2k\r");
+			printf("\x1b[31m Erro ao abrir o ficheiro \x1b[1minput \x1b[22mpara escrita. \x1b[0m");
+			Sleep(1000);
+			sair();
+		}
+		fprintf(input, "Quantos alunos pretende inscrever?\n>                                      \nQual o número do primeiro elemento?\n>\nQual o nome do primeiro elemento?\n>\nQual o apelido do primeiro elemento?\n>\nQual o número do primeiro elemento?\n>\nQual o nome do primeiro elemento?\n>\nQual o apelido do primeiro elemento?\n>\nQual o ano do calendário a gerar?\n>");
+		fclose(input);
+		system("cls");
+		init();
+		printf("                                                           \033[A\33[2k\r");
+		bot(50);
+		printf(" O ficheiro \"input.txt\" foi criado na pasta \"%c://tmp//\".\n Escreva as informa%c%ces pedidas sem deixar o \">\" para tr%cs.\n Quando estiver pronto continue o programa.\n", DRIVE, C_MIN_CED, A_MIN_TIL, A_MIN_AGU);
+		system("pause");
+	}
+}
+void fileInput()
+{
+	char linha[100];
+	fileCheck();
+	if (alunos == NULL) 
+	{//Alocação não dinamica da memoria para os alunos.
 		alunos = (aluno*)malloc(2 * sizeof(aluno));
 		if (alunos == NULL)
 		{
@@ -649,7 +676,7 @@ void fileInput()
 	{
 		init();
 		printf("                                                       \033[A\33[2k\033[A\33[2k\r");
-		printf("\x1b[31m Erro ao abrir o ficheiro \x1b[1minput \x1b[22mpara leitura. \x1b[0m", O_MIN_ACE);
+		printf("\x1b[31m Erro ao abrir o ficheiro \x1b[1minput \x1b[22mpara leitura. \x1b[0m");
 		sair();
 	}
 	for (int i = 0; i <= 18; i++){
@@ -687,14 +714,14 @@ void fileInput()
 		}
 		if (i == 15)
 		{
-			sscanf(linha, "d", &ANO);
+			sscanf(linha, "%d", &ANO);
 		}
 	}
 	fclose(input);
-	Sleep(150);
 	printf("                                                                            \033[A\33[2K\r");
 	printf(" Leitura completa!\n");
-	//system("cls");
+	Sleep(150);
+	system("cls");
 	//init();
 }
 void fileCalendar()
@@ -703,7 +730,7 @@ void fileCalendar()
 	if (CALENDARIO_GERADO == 1) {
 		PATHCALENDARIO[22] = 't';
 
-		calendario = fopen(PATHCALENDARIO, "w");
+		calendario = fopen(PATHCALENDARIO, "a");
 		if (calendario == NULL)
 		{
 			init();
@@ -712,6 +739,15 @@ void fileCalendar()
 			Sleep(1000);
 			sair();
 		}
+
+		parseTime();
+
+		fseek(calendario, 0, SEEK_END);
+
+		fprintf(calendario, "|---------------------------------------------------------|\n");
+		fprintf(calendario, "| Data:  %02d/%02d/%4d | Hora:  %02d:%02d:%02d  | Ano Gerado: %4d |\n", tm_ptr->tm_mday, tm_ptr->tm_mon + 1, 1900 + (tm_ptr->tm_year), tm_ptr->tm_hour, tm_ptr->tm_min, tm_ptr->tm_sec, ANO);
+		fprintf(calendario, "|---------------------------------------------------------|\n\n");
+
 
 		int LINE = 7;
 		for (int i = 0; i < 12; i++) {
@@ -754,13 +790,13 @@ void filePrintCabecalho()
 	fprintf(cabecalho, "\n        GERAÇÃO ALEATÓRIA DE UM CALENDÁRIO        \n");
 	fprintf(cabecalho, "    Calendário do tipo \"Calendário do ADVENTO\"    \n");
 	fprintf(cabecalho, "                     ANO %4d                    \n");
-	fprintf(cabecalho, "Aluno Nº %5d - ", alunos[0].num);
-	fprintf(cabecalho, "Nome: %s %s\n", alunos[0].nome, alunos[0].apelido);
+	fprintf(cabecalho, " Aluno Nº %5d - ", alunos[0].num);
+	fprintf(cabecalho, " Nome: %s %s\n", alunos[0].nome, alunos[0].apelido);
 	if (NUM_ALUNOS == 2) {
-		fprintf(cabecalho, "Aluno Nº %5d - ", alunos[1].num);
-		fprintf(cabecalho, "Nome: %s %s\n", alunos[1].nome, alunos[1].apelido);
+		fprintf(cabecalho, " Aluno Nº %5d - ", alunos[1].num);
+		fprintf(cabecalho, " Nome: %s %s\n", alunos[1].nome, alunos[1].apelido);
 	}
-	fprintf(cabecalho, "Data:  %02d/%02d/%4d        ", tm_ptr->tm_mday, tm_ptr->tm_mon + 1, 1900 + (tm_ptr->tm_year));
+	fprintf(cabecalho, " Data:  %02d/%02d/%4d        ", tm_ptr->tm_mday, tm_ptr->tm_mon + 1, 1900 + (tm_ptr->tm_year));
 	fprintf(cabecalho, "Hora:  %02d:%02d:%02d    \n", tm_ptr->tm_hour, tm_ptr->tm_min, tm_ptr->tm_sec);
 
 	for (int j = 0; j < 50; j++) {
